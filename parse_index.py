@@ -6,15 +6,16 @@ from collections import defaultdict
 INDEX_FILE = "papers/index.yaml"
 CATEGORIES_DIR = "categories"
 
-# Mapping from tag -> category file
+# Mapping from tag -> category folder
 CATEGORY_TAGS = {
-    "hallucination": "hallucination.md",
-    "prompt-injection": "prompt-injection.md",
-    "malicious-intent": "malicious-intent.md",
-    "security-threats": "security-threats.md",
-    "bias-value-misalignment": "bias-value-misalignment.md",
-    "specification-gaming": "specification-gaming.md",
-    "surveys": "surveys.md",
+    "hallucination": "hallucination",
+    "prompt-injection": "prompt-injection",
+    "malicious-intent": "malicious-intent",
+    "security-threats": "security-threats",
+    "bias-value-misalignment": "bias-value-misalignment",
+    "specification-gaming": "specification-gaming",
+    "surveys": "surveys",
+    "value-misalignment": "value-misalignment",
 }
 
 # Header templates for each category file
@@ -26,6 +27,7 @@ CATEGORY_HEADERS = {
     "bias-value-misalignment": "# Bias, Fairness & Value Misalignment\n\n",
     "specification-gaming": "# Specification Gaming\n\n",
     "surveys": "# Surveys, Benchmarks & Meta-Research\n\n",
+    "value-misalignment": "# Value Misalignment\n\n",
 }
 
 CATEGORY_SUMMARIES = {
@@ -74,6 +76,13 @@ CATEGORY_SUMMARIES = {
         "datasets, and roadmaps for future research. This section captures high-level perspectives that situate individual "
         "papers within the broader landscape of foundation model alignment challenges."
     ),
+    "value-misalignment": (
+        "Value misalignment refers to the divergence between human values and the objectives pursued by AI systems. "
+        "Unlike narrow specification gaming, this problem arises from the difficulty of fully encoding complex, "
+        "context-dependent human preferences into machine objectives. Research in this area explores methods for "
+        "preference learning, inverse reinforcement learning, constitutional AI, and scalable oversight, with the aim "
+        "of aligning advanced AI systems with human ethical and social values."
+    ),
 }
 
 
@@ -91,7 +100,8 @@ def format_entry(paper):
     # Link to longer summary if exists
     summary_file = f"papers/summaries/{paper['id']}.md"
     if os.path.exists(summary_file):
-        entry += f"  [Full Summary]({os.path.relpath(summary_file, CATEGORIES_DIR)})\n"
+        # Since we're now in categories/category-name/, we need to go up two levels
+        entry += f"  [Full Summary](../../{summary_file})\n"
     return entry
 
 
@@ -106,9 +116,10 @@ def generate_category_pages(papers):
                 category_papers[tag].append(paper)
 
     # Write out category files
-    for tag, filename in CATEGORY_TAGS.items():
-        path = os.path.join(CATEGORIES_DIR, filename)
-        os.makedirs(CATEGORIES_DIR, exist_ok=True)
+    for tag, folder_name in CATEGORY_TAGS.items():
+        folder_path = os.path.join(CATEGORIES_DIR, folder_name)
+        os.makedirs(folder_path, exist_ok=True)
+        path = os.path.join(folder_path, "README.md")
 
         with open(path, "w", encoding="utf-8") as f:
             # Write category header

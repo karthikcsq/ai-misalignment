@@ -139,7 +139,7 @@ Please commit both your changes to `papers/index.yaml` and any regenerated files
 3. Make your changes:
    - Edit `papers/index.yaml`
    - Add `papers/summaries/{id}.md` (optional but encouraged)
-   - Run the generator script and commit updated `categories/*.md`
+   - Run the generator script and commit updated `categories/*/README.md`
 4. Push your branch to your fork and open a PR against `main`.
 5. Fill in the PR description using the checklist below.
 
@@ -158,7 +158,7 @@ Please commit both your changes to `papers/index.yaml` and any regenerated files
 - My paper isn’t showing up under a category
   - Ensure the `tags` include a supported tag (see list above)
   - Re-run `python parse_index.py`
-  - Make sure you committed the regenerated `categories/*.md`
+  - Make sure you committed the regenerated `categories/*/README.md`
 
 - YAML parse errors
   - Check indentation (2 spaces)
