@@ -1,0 +1,19 @@
+- id: chen2023-hallucination
+  title: "Towards Reducing Hallucination in Large Language Models"
+  authors: Chen et al.
+  year: 2023
+  link: https://arxiv.org/abs/xxxx.xxxxx
+  tags: [hallucination, security-threats]
+  summary: >
+    Proposes a retrieval-augmented method to mitigate hallucinations in LLMs,
+    evaluated on QA benchmarks with significant improvement in factual accuracy.
+
+- id: smith2022-reward-hacking
+  title: "Reward Gaming in Reinforcement Learning Agents"
+  authors: Smith and Johnson
+  year: 2022
+  link: https://arxiv.org/abs/yyyy.yyyyy
+  tags: [malicious-intent, security-threats]
+  summary: >
+    Demonstrates multiple cases where agents exploit poorly specified reward
+    functions, emphasizing the need for robust reward design.
