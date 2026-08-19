@@ -22,8 +22,6 @@ more categories. The category pages below are generated from that file by
 | [Prompt Injection](categories/prompt-injection/) | 14 | Direct and indirect injection, jailbreak taxonomies, defenses and their adaptive breaks |
 | [Specification Gaming](categories/specification-gaming/) | 13 | Reward hacking, goal misgeneralization, reward model overoptimization, reward tampering |
 
-Counts sum to more than 131 because papers carry multiple tags.
-
 ## Verification
 
 Every arXiv identifier in the index has been resolved against the arXiv API and its title
