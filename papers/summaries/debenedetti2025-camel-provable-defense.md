@@ -73,16 +73,12 @@ That makes it a useful example of a broader alignment and security idea: sometim
 
 ## Notes
 
-There are really two separate defenses working together here, and they address different failure modes.
+There are really two separate defenses working together here.
 
 The split between the privileged and quarantined models is mainly about preventing hijacking. An attacker should not be able to change the agent's overall plan simply by placing instructions inside something the agent reads.
 
 The capability system is mainly about preventing exfiltration. Even if malicious data influences an intermediate value, the attacker should not be able to redirect protected information somewhere it is not allowed to go.
 
-That distinction matters in the meeting-notes example. Separating planning from reading untrusted text is not enough by itself. The capability checks are what ultimately prevent the document from being sent to the attacker.
-
-The main practical question is the seven-point performance gap.
-
-Some tasks genuinely require the agent to decide what to do next based on information it has just retrieved. Those tasks are not unusual edge cases. They are a basic part of many open-ended agent workflows.
+The main practical question is the seven-point performance gap. Some tasks genuinely require the agent to decide what to do next based on information it has just retrieved. Those tasks are a basic part of many open-ended agent workflows.
 
 That creates a real limitation for CaMeL. It works best when the user's intent can be turned into a reasonably complete plan before untrusted information enters the system. The more an agent needs to repeatedly read new information, reconsider its goals, and decide its next action on the fly, the harder this architecture becomes to apply without sacrificing capability.
