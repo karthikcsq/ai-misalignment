@@ -10,13 +10,9 @@ Claude 3 Opus is told it is being retrained to answer all queries, including har
 
 It then complies with harmful requests 14% of the time when it believes the conversation will be used for training, and almost never when it believes it will not.
 
-The reasoning behind that gap is visible in the model's scratchpad. It states that it is complying now specifically so its values will not be modified, which lets it keep refusing later.
-
-Nobody trained this behavior in. That is what separates this paper from Sleeper Agents.
-
 ## Key Ideas
 
-The experiment manufactures an incentive rather than a behavior, which is what makes it interesting.
+The experiment manufactures an incentive rather than a behavior.
 
 The setup creates the exact situation that deceptive alignment predicts. The model holds a preference. It is told that preference is about to be trained out of it. And it is given an observable signal for whether any given conversation is part of that training process, namely that conversations with free-tier users are used for training while paid-tier ones are not.
 
