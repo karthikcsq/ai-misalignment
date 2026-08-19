@@ -1,19 +1,1450 @@
-- id: chen2023-hallucination
-  title: "Towards Reducing Hallucination in Large Language Models"
-  authors: Chen et al.
-  year: 2023
-  link: https://arxiv.org/abs/xxxx.xxxxx
-  tags: [hallucination, security-threats]
+- id: amodei2016-concrete-problems
+  title: "Concrete Problems in AI Safety"
+  authors: Amodei et al.
+  year: 2016
+  link: https://arxiv.org/abs/1606.06565
+  tags: [specification-gaming, value-misalignment, surveys]
   summary: >
-    Proposes a retrieval-augmented method to mitigate hallucinations in LLMs,
-    evaluated on QA benchmarks with significant improvement in factual accuracy.
+    Lays out five practical safety problems for modern ML systems: avoiding negative
+    side effects, avoiding reward hacking, scalable oversight, safe exploration, and
+    robustness to distributional shift. Framed technical AI safety as concrete,
+    testable engineering work rather than speculative long-term concern.
 
-- id: smith2022-reward-hacking
-  title: "Reward Gaming in Reinforcement Learning Agents"
-  authors: Smith and Johnson
+- id: lin2021-truthfulqa
+  title: "TruthfulQA: Measuring How Models Mimic Human Falsehoods"
+  authors: Lin et al.
+  year: 2021
+  link: https://arxiv.org/abs/2109.07958
+  tags: [hallucination]
+  summary: >
+    Introduces an 817-question benchmark across 38 categories testing whether models
+    generate falsehoods that mimic common human misconceptions. Found larger models
+    were often less truthful than smaller ones, since scaling amplifies imitation of
+    training-data falsehoods rather than correcting them.
+
+- id: ji2022-hallucination-survey
+  title: "Survey of Hallucination in Natural Language Generation"
+  authors: Ji et al.
   year: 2022
-  link: https://arxiv.org/abs/yyyy.yyyyy
+  link: https://arxiv.org/abs/2202.03629
+  tags: [hallucination, surveys]
+  summary: >
+    Surveys hallucination across NLG tasks including summarization, dialogue, and
+    generative QA, distinguishing intrinsic from extrinsic hallucination. Catalogs
+    contributing factors, evaluation metrics, and mitigation methods from before
+    the LLM era.
+
+- id: manakul2023-selfcheckgpt
+  title: "SelfCheckGPT: Zero-Resource Black-Box Hallucination Detection for Generative Large Language Models"
+  authors: Manakul et al.
+  year: 2023
+  link: https://arxiv.org/abs/2303.08896
+  tags: [hallucination]
+  summary: >
+    Detects hallucinated content without external knowledge bases or model internals
+    by sampling multiple responses to the same prompt and measuring consistency
+    between them. Shows inconsistent sampled answers correlate strongly with
+    factually unsupported statements.
+
+- id: lewis2020-rag
+  title: "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks"
+  authors: Lewis et al.
+  year: 2020
+  link: https://arxiv.org/abs/2005.11401
+  tags: [hallucination]
+  summary: >
+    Introduces RAG, combining a pretrained seq2seq generator with a dense retriever
+    over Wikipedia passages and training both jointly. Set state of the art on
+    open-domain QA and became the foundational architecture for retrieval-based
+    hallucination mitigation.
+
+- id: zhang2023-snowballing
+  title: "How Language Model Hallucinations Can Snowball"
+  authors: Zhang et al.
+  year: 2023
+  link: https://arxiv.org/abs/2305.13534
+  tags: [hallucination]
+  summary: >
+    Shows that once a model commits to an early false claim it generates further
+    false claims to justify the first, even when it can identify those later claims
+    as wrong if asked directly. Demonstrates the effect across primality,
+    US senators, and multi-hop reasoning questions.
+
+- id: huang2023-hallucination-survey
+  title: "A Survey on Hallucination in Large Language Models: Principles, Taxonomy, Challenges, and Open Questions"
+  authors: Huang et al.
+  year: 2023
+  link: https://arxiv.org/abs/2311.05232
+  tags: [hallucination, surveys]
+  summary: >
+    Presents an LLM-era taxonomy separating factuality from faithfulness
+    hallucination, tracing causes across data, training, and inference stages.
+    Reviews detection methods, benchmarks, and mitigation strategies.
+
+- id: kadavath2022-know-what-they-know
+  title: "Language Models (Mostly) Know What They Know"
+  authors: Kadavath et al.
+  year: 2022
+  link: https://arxiv.org/abs/2207.05221
+  tags: [hallucination]
+  summary: >
+    Studies whether models can predict which questions they will answer correctly,
+    via calibrated probabilities and a self-evaluation "P(True)" approach where the
+    model judges its own prior answers. Finds self-evaluation calibration improves
+    with model size and few-shot prompting.
+
+- id: min2023-factscore
+  title: "FActScore: Fine-grained Atomic Evaluation of Factual Precision in Long Form Text Generation"
+  authors: Min et al.
+  year: 2023
+  link: https://arxiv.org/abs/2305.14251
+  tags: [hallucination]
+  summary: >
+    Breaks long-form generations into atomic facts and scores the percentage
+    supported by a trusted knowledge source. Evaluates several commercial LLMs and
+    provides a cheaper automated estimator approximating human judgments.
+
+- id: kuhn2023-semantic-uncertainty
+  title: "Semantic Uncertainty: Linguistic Invariances for Uncertainty Estimation in Natural Language Generation"
+  authors: Kuhn et al.
+  year: 2023
+  link: https://arxiv.org/abs/2302.09664
+  tags: [hallucination]
+  summary: >
+    Introduces semantic entropy, clustering sampled generations by meaning via
+    bidirectional entailment before computing entropy. Shows this predicts
+    hallucinated, low-confidence answers better than token-level likelihood.
+
+- id: li2023-halueval
+  title: "HaluEval: A Large-Scale Hallucination Evaluation Benchmark for Large Language Models"
+  authors: Li et al.
+  year: 2023
+  link: https://arxiv.org/abs/2305.11747
+  tags: [hallucination]
+  summary: >
+    Constructs a 35,000-sample benchmark of generated and human-annotated
+    hallucinated examples across QA, dialogue, and summarization. Finds LLMs
+    struggle to recognize hallucinated content, and that external knowledge or
+    reasoning steps improve recognition.
+- id: perez2022-ignore-previous-prompt
+  title: "Ignore Previous Prompt: Attack Techniques For Language Models"
+  authors: Perez and Ribeiro
+  year: 2022
+  link: https://arxiv.org/abs/2211.09527
+  tags: [prompt-injection, security-threats]
+  summary: >
+    Introduces PromptInject, a framework for composing adversarial prompts against
+    GPT-3. Demonstrates goal hijacking, where an injected instruction redirects
+    output, and prompt leaking, where the model reveals its own system prompt.
+
+- id: greshake2023-indirect-prompt-injection
+  title: "Not what you've signed up for: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection"
+  authors: Greshake et al.
+  year: 2023
+  link: https://arxiv.org/abs/2302.12173
+  tags: [prompt-injection, security-threats]
+  summary: >
+    Shows adversaries can remotely compromise LLM-integrated applications by planting
+    instructions in data the model retrieves, such as web pages, rather than in the
+    user prompt. Demonstrates data exfiltration and manipulation against real systems.
+
+- id: zou2023-universal-transferable-suffixes
+  title: "Universal and Transferable Adversarial Attacks on Aligned Language Models"
+  authors: Zou et al.
+  year: 2023
+  link: https://arxiv.org/abs/2307.15043
+  tags: [prompt-injection, security-threats]
+  summary: >
+    Presents Greedy Coordinate Gradient, which automatically finds adversarial
+    suffixes that make aligned models comply with harmful requests. Suffixes
+    optimized against open-source models transfer to closed commercial systems.
+
+- id: wei2023-jailbroken-safety-training-fail
+  title: "Jailbroken: How Does LLM Safety Training Fail?"
+  authors: Wei et al.
+  year: 2023
+  link: https://arxiv.org/abs/2307.02483
+  tags: [prompt-injection, security-threats]
+  summary: >
+    Proposes a taxonomy of why jailbreaks succeed, identifying competing objectives
+    between capability and safety training, and mismatched generalization where
+    safety training does not cover a domain the model still operates in.
+
+- id: shen2023-do-anything-now
+  title: "\"Do Anything Now\": Characterizing and Evaluating In-The-Wild Jailbreak Prompts on Large Language Models"
+  authors: Shen et al.
+  year: 2023
+  link: https://arxiv.org/abs/2308.03825
+  tags: [prompt-injection, security-threats]
+  summary: >
+    Analyzes 1,405 real jailbreak prompts collected in the wild over a year,
+    identifying 131 jailbreak communities and their strategies. Builds a
+    107,250-question evaluation set across 13 forbidden scenarios.
+
+- id: chao2023-pair-twenty-queries
+  title: "Jailbreaking Black Box Large Language Models in Twenty Queries"
+  authors: Chao et al.
+  year: 2023
+  link: https://arxiv.org/abs/2310.08419
+  tags: [prompt-injection, security-threats]
+  summary: >
+    Introduces PAIR, which uses an attacker LLM to iteratively refine jailbreak
+    prompts against a target model with only black-box access. Achieves competitive
+    success typically within twenty queries and transfers across model families.
+
+- id: debenedetti2024-agentdojo
+  title: "AgentDojo: A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents"
+  authors: Debenedetti et al.
+  year: 2024
+  link: https://arxiv.org/abs/2406.13352
+  tags: [prompt-injection, security-threats]
+  summary: >
+    Builds an evaluation environment with 97 realistic agent tasks and 629 security
+    test cases where tool outputs carry injected instructions. Finds the best agents
+    complete under 66% of tasks even with no attack present.
+
+- id: hines2024-spotlighting
+  title: "Defending Against Indirect Prompt Injection Attacks With Spotlighting"
+  authors: Hines et al.
+  year: 2024
+  link: https://arxiv.org/abs/2403.14720
+  tags: [prompt-injection, security-threats]
+  summary: >
+    Proposes spotlighting, prompt transformations that mark the provenance of
+    untrusted input so the model can distinguish it from trusted instructions.
+    Cuts attack success from over 50% to below 2% with minimal quality loss.
+
+- id: chen2024-struq
+  title: "StruQ: Defending Against Prompt Injection with Structured Queries"
+  authors: Chen et al.
+  year: 2024
+  link: https://arxiv.org/abs/2402.06363
+  tags: [prompt-injection, security-threats]
+  summary: >
+    Separates prompts and untrusted data into distinct channels using a secure
+    front-end formatter plus a model fine-tuned to follow instructions only in the
+    prompt channel. Achieves under 2% attack success with little utility loss.
+
+- id: wallace2024-instruction-hierarchy
+  title: "The Instruction Hierarchy: Training LLMs to Prioritize Privileged Instructions"
+  authors: Wallace et al.
+  year: 2024
+  link: https://arxiv.org/abs/2404.13208
+  tags: [prompt-injection, security-threats]
+  summary: >
+    Argues prompt injection persists because models treat system prompts, user
+    messages, and third-party data as equal priority, and trains an instruction
+    hierarchy so models favor higher-privileged instructions.
+
+- id: hadfieldmenell2017-inverse-reward-design
+  title: "Inverse Reward Design"
+  authors: Hadfield-Menell et al.
+  year: 2017
+  link: https://arxiv.org/abs/1711.02827
+  tags: [specification-gaming, value-misalignment]
+  summary: >
+    Treats a designer-specified reward as evidence about the true intended reward
+    rather than ground truth, deriving a Bayesian approach for inferring uncertainty
+    over the real objective. Reduces specification gaming in novel test environments.
+
+- id: langosco2021-goal-misgeneralization-rl
+  title: "Goal Misgeneralization in Deep Reinforcement Learning"
+  authors: Langosco et al.
+  year: 2021
+  link: https://arxiv.org/abs/2105.14111
+  tags: [specification-gaming, value-misalignment]
+  summary: >
+    Introduces goal misgeneralization as distinct from reward hacking: an agent
+    trained with a correct reward still pursues the wrong goal at test time because
+    it learned a capable but misaligned policy.
+
+- id: pan2022-reward-misspecification
+  title: "The Effects of Reward Misspecification: Mapping and Mitigating Misaligned Models"
+  authors: Pan et al.
+  year: 2022
+  link: https://arxiv.org/abs/2201.03544
+  tags: [specification-gaming, value-misalignment]
+  summary: >
+    Studies how proxy-reward misspecification and optimization power jointly
+    determine behavioral degradation. Introduces environments illustrating recurring
+    patterns such as unsafe subgoal completion, and evaluates mitigations.
+
+- id: shah2022-goal-misgeneralization
+  title: "Goal Misgeneralization: Why Correct Specifications Aren't Enough For Correct Goals"
+  authors: Shah et al.
+  year: 2022
+  link: https://arxiv.org/abs/2210.01790
+  tags: [specification-gaming, value-misalignment]
+  summary: >
+    Argues goal misgeneralization can occur even with a perfectly specified reward,
+    because the learned goal agrees with the intended one only on the training
+    distribution. Gives deep learning examples and oversight implications.
+
+- id: skalse2022-defining-reward-hacking
+  title: "Defining and Characterizing Reward Hacking"
+  authors: Skalse et al.
+  year: 2022
+  link: https://arxiv.org/abs/2209.13085
+  tags: [specification-gaming]
+  summary: >
+    Formally defines reward hacking in terms of a proxy reward's relationship to the
+    true reward, and proves that for most reward pairs some optimization pressure
+    induces hacking. Shows hacking can appear discontinuously.
+
+- id: gao2022-scaling-laws-reward-overoptimization
+  title: "Scaling Laws for Reward Model Overoptimization"
+  authors: Gao et al.
+  year: 2022
+  link: https://arxiv.org/abs/2210.10760
+  tags: [specification-gaming]
+  summary: >
+    Uses a synthetic gold-standard reward model as a stand-in for true human
+    preferences to measure how optimizing a proxy reward degrades true reward.
+    Finds the proxy-gold gap grows predictably along smooth scaling laws.
+
+- id: sharma2023-understanding-sycophancy
+  title: "Towards Understanding Sycophancy in Language Models"
+  authors: Sharma et al.
+  year: 2023
+  link: https://arxiv.org/abs/2310.13548
+  tags: [specification-gaming, bias-value-misalignment]
+  summary: >
+    Shows state-of-the-art assistants consistently echo a user's stated views rather
+    than giving the most accurate answer. Finds sycophantic responses are often
+    preferred by humans and reward models, indicating RLHF pressure toward sycophancy.
+
+- id: casper2023-open-problems-rlhf
+  title: "Open Problems and Fundamental Limitations of Reinforcement Learning from Human Feedback"
+  authors: Casper et al.
+  year: 2023
+  link: https://arxiv.org/abs/2307.15217
+  tags: [specification-gaming, surveys, value-misalignment]
+  summary: >
+    Catalogs problems specific to RLHF including reward hacking from poor human
+    feedback and reward model misgeneralization, alongside more fundamental limits
+    of the paradigm. Proposes auditing and disclosure practices.
+
+- id: denison2024-sycophancy-to-subterfuge
+  title: "Sycophancy to Subterfuge: Investigating Reward-Tampering in Large Language Models"
+  authors: Denison et al.
+  year: 2024
+  link: https://arxiv.org/abs/2406.10162
+  tags: [specification-gaming, value-misalignment]
+  summary: >
+    Builds a curriculum of gameable environments to test whether training a model to
+    game simple settings generalizes to serious reward tampering. Finds models
+    generalize zero-shot to rare, severe tampering that safety training does not remove.
+- id: christiano2017-deep-rl-human-preferences
+  title: "Deep reinforcement learning from human preferences"
+  authors: Christiano et al.
+  year: 2017
+  link: https://arxiv.org/abs/1706.03741
+  tags: [value-misalignment]
+  summary: >
+    Introduces the reward-modeling paradigm behind RLHF: a network trained on human
+    comparisons between short behavior clips substitutes for a hand-written reward.
+    Reaches strong Atari and robotics performance using feedback on under 1% of interactions.
+
+- id: irving2018-ai-safety-debate
+  title: "AI safety via debate"
+  authors: Irving et al.
+  year: 2018
+  link: https://arxiv.org/abs/1805.00899
+  tags: [value-misalignment]
+  summary: >
+    Proposes training AI via self-play in a debate game where two agents argue for
+    competing answers before a human judge, as scalable oversight for outputs beyond
+    direct human evaluation. Reports a toy image-classification proof of concept.
+
+- id: stiennon2020-summarize-human-feedback
+  title: "Learning to summarize from human feedback"
+  authors: Stiennon et al.
+  year: 2020
+  link: https://arxiv.org/abs/2009.01325
+  tags: [value-misalignment]
+  summary: >
+    Fine-tunes large models on summarization using a reward model trained on human
+    preference comparisons, then RL against that reward model. Humans preferred the
+    results over much larger supervised-only models.
+
+- id: ouyang2022-instructgpt
+  title: "Training language models to follow instructions with human feedback"
+  authors: Ouyang et al.
+  year: 2022
+  link: https://arxiv.org/abs/2203.02155
+  tags: [value-misalignment]
+  summary: >
+    Introduces InstructGPT, combining supervised fine-tuning on labeler
+    demonstrations with RLHF on preference rankings. A 1.3B InstructGPT was preferred
+    over 175B GPT-3, with reduced toxicity and factual error.
+
+- id: bai2022-constitutional-ai
+  title: "Constitutional AI: Harmlessness from AI Feedback"
+  authors: Bai et al.
+  year: 2022
+  link: https://arxiv.org/abs/2212.08073
+  tags: [value-misalignment]
+  summary: >
+    Trains a harmless assistant using written principles plus AI self-critique and
+    revision, then AI-generated preference labels for RL, replacing most human
+    harmlessness labels. The result is more helpful and better at explaining objections.
+
+- id: rafailov2023-dpo
+  title: "Direct Preference Optimization: Your Language Model is Secretly a Reward Model"
+  authors: Rafailov et al.
+  year: 2023
+  link: https://arxiv.org/abs/2305.18290
+  tags: [value-misalignment]
+  summary: >
+    Derives a mapping between reward functions and optimal policies under the RLHF
+    objective, yielding a classification loss that fits a model directly to
+    preference data without a separate reward model or RL loop.
+
+- id: burns2023-weak-to-strong
+  title: "Weak-to-Strong Generalization: Eliciting Strong Capabilities With Weak Supervision"
+  authors: Burns et al.
+  year: 2023
+  link: https://arxiv.org/abs/2312.09390
+  tags: [value-misalignment]
+  summary: >
+    Tests whether a strong model fine-tuned only on a weaker supervisor's labels can
+    generalize beyond that supervisor's errors, as an analogy for humans supervising
+    superhuman AI. Strong students beat weak teachers but do not close the full gap.
+
+- id: hubinger2024-sleeper-agents
+  title: "Sleeper Agents: Training Deceptive LLMs that Persist Through Safety Training"
+  authors: Hubinger et al.
+  year: 2024
+  link: https://arxiv.org/abs/2401.05566
+  tags: [value-misalignment, security-threats]
+  summary: >
+    Trains models with backdoored behavior triggered by a context cue, then finds
+    supervised fine-tuning, RL, and adversarial training all fail to remove the
+    backdoor and can teach the model to hide it better during training.
+
+- id: greenblatt2024-alignment-faking
+  title: "Alignment faking in large language models"
+  authors: Greenblatt et al.
+  year: 2024
+  link: https://arxiv.org/abs/2412.14093
+  tags: [value-misalignment]
+  summary: >
+    Shows a model told it is being retrained toward conflicting objectives will
+    strategically comply during apparent training to avoid having its values
+    modified, while behaving normally outside the perceived training context.
+
+- id: bolukbasi2016-debiasing-embeddings
+  title: "Man is to Computer Programmer as Woman is to Homemaker? Debiasing Word Embeddings"
+  authors: Bolukbasi et al.
+  year: 2016
+  link: https://arxiv.org/abs/1607.06520
+  tags: [bias-value-misalignment]
+  summary: >
+    Shows word embeddings trained on news text encode strong gender stereotypes,
+    surfaced through analogy tasks. Proposes a geometric method to identify a gender
+    direction and debias vectors while preserving useful semantic structure.
+
+- id: caliskan2017-semantics-biases
+  title: "Semantics derived automatically from language corpora contain human-like biases"
+  authors: Caliskan et al.
+  year: 2017
+  link: https://arxiv.org/abs/1608.07187
+  tags: [bias-value-misalignment]
+  summary: >
+    Adapts the Implicit Association Test into the Word Embedding Association Test and
+    applies it to GloVe vectors. Replicates documented human biases from neutral
+    associations to race and gender stereotypes.
+
+- id: nangia2020-crows-pairs
+  title: "CrowS-Pairs: A Challenge Dataset for Measuring Social Biases in Masked Language Models"
+  authors: Nangia et al.
+  year: 2020
+  link: https://arxiv.org/abs/2010.00133
+  tags: [bias-value-misalignment]
+  summary: >
+    Introduces 1,508 crowdsourced sentence pairs contrasting more- and
+    less-stereotyping sentences across nine bias categories. Finds three widely used
+    masked language models systematically prefer the stereotyping sentence.
+
+- id: nadeem2021-stereoset
+  title: "StereoSet: Measuring stereotypical bias in pretrained language models"
+  authors: Nadeem et al.
+  year: 2021
+  link: https://arxiv.org/abs/2004.09456
+  tags: [bias-value-misalignment]
+  summary: >
+    Measures stereotypical bias across gender, profession, race, and religion,
+    pairing a bias metric with a language-modeling-ability metric to catch trivial
+    solutions. Finds BERT, GPT-2, RoBERTa, and XLNet all show strong bias.
+
+- id: parrish2022-bbq
+  title: "BBQ: A Hand-Built Bias Benchmark for Question Answering"
+  authors: Parrish et al.
+  year: 2022
+  link: https://arxiv.org/abs/2110.08193
+  tags: [bias-value-misalignment]
+  summary: >
+    A hand-built QA benchmark across nine social dimensions, testing models under
+    ambiguous context where stereotype reliance should be zero and disambiguated
+    context where the answer conflicts with a stereotype. Finds heavy stereotype reliance.
+
+- id: blodgett2020-language-technology-power
+  title: 'Language (Technology) is Power: A Critical Survey of "Bias" in NLP'
+  authors: Blodgett et al.
+  year: 2020
+  link: https://arxiv.org/abs/2005.14050
+  tags: [bias-value-misalignment, surveys]
+  summary: >
+    Surveys 146 NLP papers analyzing bias and finds their motivations often vague and
+    disconnected from the techniques proposed, rarely engaging literature on language
+    and social hierarchy. Recommends grounding bias work in language and power.
+
+- id: santurkar2023-whose-opinions
+  title: "Whose Opinions Do Language Models Reflect?"
+  authors: Santurkar et al.
+  year: 2023
+  link: https://arxiv.org/abs/2303.17548
+  tags: [bias-value-misalignment, value-misalignment]
+  summary: >
+    Builds OpinionsQA from public opinion polls to compare model-generated opinions
+    against 60 US demographic groups. Finds substantial misalignment with the general
+    population, and that steering toward a group does not fully close the gap.
+
+- id: gehman2020-realtoxicityprompts
+  title: "RealToxicityPrompts: Evaluating Neural Toxic Degeneration in Language Models"
+  authors: Gehman et al.
+  year: 2020
+  link: https://arxiv.org/abs/2009.11462
+  tags: [bias-value-misalignment]
+  summary: >
+    Releases 100K naturally occurring web prompts with toxicity scores and shows
+    pretrained models degenerate into toxic text even from innocuous prompts. Finds
+    no mitigation fully eliminates toxic degeneration.
+
+- id: bender2021-stochastic-parrots
+  title: "On the Dangers of Stochastic Parrots: Can Language Models Be Too Big?"
+  authors: Bender et al.
+  year: 2021
+  link: https://dl.acm.org/doi/10.1145/3442188.3445922
+  tags: [bias-value-misalignment, surveys]
+  summary: >
+    Argues ever-larger models trained on uncurated web text encode and amplify
+    harmful associations while giving an illusion of understanding. Surveys
+    environmental costs, documentation gaps, and the difficulty of auditing corpora.
+
+- id: buolamwini2018-gender-shades
+  title: "Gender Shades: Intersectional Accuracy Disparities in Commercial Gender Classification"
+  authors: Buolamwini and Gebru
+  year: 2018
+  link: https://proceedings.mlr.press/v81/buolamwini18a.html
+  tags: [bias-value-misalignment]
+  summary: >
+    Audits three commercial gender-classification systems using a dataset balanced by
+    skin type and gender. All three perform worst on darker-skinned women, with error
+    rates up to 34.7% versus 0.8% for lighter-skinned men.
+- id: carlini2020-training-data-extraction
+  title: "Extracting Training Data from Large Language Models"
+  authors: Carlini et al.
+  year: 2020
+  link: https://arxiv.org/abs/2012.07805
+  tags: [security-threats]
+  summary: >
+    Demonstrates a training data extraction attack against GPT-2 recovering hundreds
+    of verbatim training examples, including personally identifiable information,
+    using only black-box query access.
+
+- id: shokri2016-membership-inference
+  title: "Membership Inference Attacks against Machine Learning Models"
+  authors: Shokri et al.
+  year: 2016
+  link: https://arxiv.org/abs/1610.05820
+  tags: [security-threats]
+  summary: >
+    Introduces the membership inference attack, showing an adversary with black-box
+    access to a classifier can determine whether a record was in its training set,
+    using shadow models to train attack classifiers.
+
+- id: tramer2016-stealing-models
+  title: "Stealing Machine Learning Models via Prediction APIs"
+  authors: Tramèr et al.
+  year: 2016
+  link: https://arxiv.org/abs/1609.02943
+  tags: [security-threats]
+  summary: >
+    Shows ML-as-a-service prediction APIs leak enough through confidence scores for
+    an attacker to reconstruct near-equivalent models via equation-solving and
+    path-finding queries.
+
+- id: goodfellow2014-adversarial-examples
+  title: "Explaining and Harnessing Adversarial Examples"
+  authors: Goodfellow et al.
+  year: 2014
+  link: https://arxiv.org/abs/1412.6572
+  tags: [security-threats]
+  summary: >
+    Argues adversarial vulnerability stems from linear behavior in high-dimensional
+    spaces rather than nonlinearity, and introduces the fast gradient sign method
+    plus adversarial training as a defense.
+
+- id: abadi2016-deep-learning-differential-privacy
+  title: "Deep Learning with Differential Privacy"
+  authors: Abadi et al.
+  year: 2016
+  link: https://arxiv.org/abs/1607.00133
+  tags: [security-threats]
+  summary: >
+    Develops differentially private SGD with a moments accountant for tighter
+    privacy-loss tracking, enabling deep networks to be trained with formal privacy
+    guarantees at manageable accuracy cost.
+
+- id: gu2017-badnets
+  title: "BadNets: Identifying Vulnerabilities in the Machine Learning Model Supply Chain"
+  authors: Gu et al.
+  year: 2017
+  link: https://arxiv.org/abs/1708.06733
+  tags: [security-threats]
+  summary: >
+    Shows outsourced training can produce backdoored networks that behave normally on
+    clean inputs but misbehave on attacker-chosen triggers, and that backdoors
+    survive transfer learning.
+
+- id: carlini2023-poisoning-web-scale
+  title: "Poisoning Web-Scale Training Datasets is Practical"
+  authors: Carlini et al.
+  year: 2023
+  link: https://arxiv.org/abs/2302.10149
+  tags: [security-threats]
+  summary: >
+    Presents split-view poisoning, exploiting content changing after collection, and
+    frontrunning poisoning of periodic snapshots, showing both are feasible against
+    web-scraped training sets at low cost.
+
+- id: nasr2023-scalable-extraction
+  title: "Scalable Extraction of Training Data from (Production) Language Models"
+  authors: Nasr et al.
+  year: 2023
+  link: https://arxiv.org/abs/2311.17035
+  tags: [security-threats]
+  summary: >
+    Extends training-data extraction to production aligned models including ChatGPT,
+    introducing a divergence attack that prompts the model to emit memorized training
+    data, recovering gigabytes of text.
+
+- id: carlini2016-robustness-evaluation
+  title: "Towards Evaluating the Robustness of Neural Networks"
+  authors: Carlini and Wagner
+  year: 2016
+  link: https://arxiv.org/abs/1608.04644
+  tags: [security-threats]
+  summary: >
+    Introduces the C&W optimization-based adversarial attacks under several norms and
+    shows they defeat defensive distillation, establishing a stronger benchmark for
+    evaluating robustness defenses.
+
+- id: zhu2019-deep-leakage-gradients
+  title: "Deep Leakage from Gradients"
+  authors: Zhu et al.
+  year: 2019
+  link: https://arxiv.org/abs/1906.08935
+  tags: [security-threats]
+  summary: >
+    Shows exchanging gradients in federated learning is not safe: an attacker can
+    optimize dummy inputs to match observed gradients and recover the original
+    training images and text without prior knowledge.
+
+- id: brundage2018-malicious-use-ai
+  title: "The Malicious Use of Artificial Intelligence: Forecasting, Prevention, and Mitigation"
+  authors: Brundage et al.
+  year: 2018
+  link: https://arxiv.org/abs/1802.07228
+  tags: [malicious-intent, surveys]
+  summary: >
+    A multi-institution report mapping how AI expands threats across digital,
+    physical, and political security, including spear-phishing automation and
+    surveillance-driven manipulation. Proposes prevention, response, and norm-setting.
+
+- id: ganguli2022-red-teaming-lms
+  title: "Red Teaming Language Models to Reduce Harms: Methods, Scaling Behaviors, and Lessons Learned"
+  authors: Ganguli et al.
+  year: 2022
+  link: https://arxiv.org/abs/2209.07858
+  tags: [security-threats, malicious-intent]
+  summary: >
+    Crowdworkers red-teamed models of varying size and RLHF training, producing tens
+    of thousands of adversarial conversations. Releases the dataset and analyzes how
+    attack success scales with model size and safety training.
+
+- id: perez2022-red-teaming-with-lms
+  title: "Red Teaming Language Models with Language Models"
+  authors: Perez et al.
+  year: 2022
+  link: https://arxiv.org/abs/2202.03286
+  tags: [security-threats, malicious-intent]
+  summary: >
+    Uses one language model to automatically generate adversarial test cases that
+    elicit harmful behavior from a target model, then classifies the outputs.
+    Surfaces offensive content and data leakage far more cheaply than human red-teaming.
+
+- id: sandbrink2023-ai-biological-misuse
+  title: "Artificial intelligence and biological misuse: Differentiating risks of language models and biological design tools"
+  authors: Sandbrink
+  year: 2023
+  link: https://arxiv.org/abs/2306.13952
+  tags: [malicious-intent]
+  summary: >
+    Distinguishes the biosecurity risk profile of language models, which lower
+    barriers to existing pathogen information, from biological design tools, which
+    could enable novel agents. Argues the two need different governance.
+
+- id: soice2023-llms-dual-use-biotechnology
+  title: "Can large language models democratize access to dual-use biotechnology?"
+  authors: Soice et al.
+  year: 2023
+  link: https://arxiv.org/abs/2306.03809
+  tags: [malicious-intent]
+  summary: >
+    Non-scientist students probed chatbots for guidance on obtaining pandemic-capable
+    pathogens. The chatbots suggested candidate agents and pointed toward vendors
+    unlikely to screen orders, demonstrating a concrete uplift risk.
+
+- id: zellers2019-defending-neural-fake-news
+  title: "Defending Against Neural Fake News"
+  authors: Zellers et al.
+  year: 2019
+  link: https://arxiv.org/abs/1905.12616
   tags: [malicious-intent, security-threats]
   summary: >
-    Demonstrates multiple cases where agents exploit poorly specified reward
-    functions, emphasizing the need for robust reward design.
+    Introduces Grover, which generates controllable propaganda-style fake news that
+    humans find more persuasive than human-written propaganda, and shows the same
+    model is the best available detector of its own output.
+
+- id: goldstein2023-generative-influence-operations
+  title: "Generative Language Models and Automated Influence Operations: Emerging Threats and Potential Mitigations"
+  authors: Goldstein et al.
+  year: 2023
+  link: https://arxiv.org/abs/2301.04246
+  tags: [malicious-intent, security-threats]
+  summary: >
+    Analyzes how generative models could change the actors, behaviors, and content of
+    influence operations, lowering costs for propaganda generation and
+    personalization. Proposes mitigations across model design, platforms, and access.
+
+- id: tolosana2020-deepfakes-survey
+  title: "DeepFakes and Beyond: A Survey of Face Manipulation and Fake Detection"
+  authors: Tolosana et al.
+  year: 2020
+  link: https://arxiv.org/abs/2001.00179
+  tags: [malicious-intent, surveys]
+  summary: >
+    Surveys four categories of face manipulation including identity swap and entire
+    face synthesis, alongside the public datasets and detection methods used to
+    evaluate them.
+
+- id: phuong2024-evaluating-dangerous-capabilities
+  title: "Evaluating Frontier Models for Dangerous Capabilities"
+  authors: Phuong et al.
+  year: 2024
+  link: https://arxiv.org/abs/2403.13793
+  tags: [security-threats, malicious-intent]
+  summary: >
+    Builds the first concrete evaluation suite for dangerous capabilities in frontier
+    models across persuasion, cyber-offense, self-proliferation, and self-reasoning.
+    Finds no strongly dangerous capabilities yet but identifies early warning signs.
+
+- id: shevlane2022-structured-access
+  title: "Structured access: an emerging paradigm for safe AI deployment"
+  authors: Shevlane
+  year: 2022
+  link: https://arxiv.org/abs/2201.05159
+  tags: [malicious-intent]
+  summary: >
+    Argues against a binary open-versus-closed release framing, proposing structured
+    access where models are deployed as controllable services with usage
+    restrictions, monitoring, and staged access.
+- id: hendrycks2021-unsolved-problems-ml-safety
+  title: "Unsolved Problems in ML Safety"
+  authors: Hendrycks et al.
+  year: 2021
+  link: https://arxiv.org/abs/2109.13916
+  tags: [surveys]
+  summary: >
+    Organizes open ML safety research into robustness, monitoring, alignment, and
+    systemic safety, surveying concrete open problems in each and arguing these
+    receive far less investment than capabilities work.
+
+- id: hendrycks2023-catastrophic-ai-risks
+  title: "An Overview of Catastrophic AI Risks"
+  authors: Hendrycks et al.
+  year: 2023
+  link: https://arxiv.org/abs/2306.12001
+  tags: [surveys]
+  summary: >
+    Categorizes catastrophic risks into malicious use, AI race dynamics that erode
+    safety, organizational risks, and rogue AIs, surveying mechanisms behind each and
+    existing mitigation proposals.
+
+- id: hubinger2019-risks-learned-optimization
+  title: "Risks from Learned Optimization in Advanced Machine Learning Systems"
+  authors: Hubinger et al.
+  year: 2019
+  link: https://arxiv.org/abs/1906.01820
+  tags: [surveys, specification-gaming]
+  summary: >
+    Introduces mesa-optimization, where a trained model becomes an optimizer with an
+    internal objective diverging from the base objective. Analyzes when learned
+    optimizers arise and argues this creates a distinct deceptive alignment risk.
+
+- id: weidinger2021-ethical-social-risks-lm
+  title: "Ethical and social risks of harm from Language Models"
+  authors: Weidinger et al.
+  year: 2021
+  link: https://arxiv.org/abs/2112.04359
+  tags: [surveys, bias-value-misalignment]
+  summary: >
+    A taxonomy organizing language model harms into six areas including
+    discrimination, information hazards, misinformation, malicious uses, and
+    human-computer interaction harms, with mechanisms and affected groups for each.
+
+- id: liang2022-helm
+  title: "Holistic Evaluation of Language Models"
+  authors: Liang et al.
+  year: 2022
+  link: https://arxiv.org/abs/2211.09110
+  tags: [surveys]
+  summary: >
+    Introduces HELM, evaluating models across many scenarios and metrics rather than
+    a single accuracy number, covering calibration, robustness, fairness, bias,
+    toxicity, and efficiency across dozens of models.
+
+- id: srivastava2022-big-bench
+  title: "Beyond the Imitation Game: Quantifying and extrapolating the capabilities of language models"
+  authors: Srivastava et al.
+  year: 2022
+  link: https://arxiv.org/abs/2206.04615
+  tags: [surveys]
+  summary: >
+    Presents BIG-bench, 204 tasks from over 450 authors probing capabilities believed
+    beyond current models. Analyzes how performance and calibration scale with size
+    and finds scaling alone leaves many tasks unsolved.
+
+- id: huang2024-trustllm
+  title: "TrustLLM: Trustworthiness in Large Language Models"
+  authors: Huang et al.
+  year: 2024
+  link: https://arxiv.org/abs/2401.05561
+  tags: [surveys, bias-value-misalignment]
+  summary: >
+    Evaluates 16 mainstream LLMs across truthfulness, safety, fairness, robustness,
+    privacy, and machine ethics using over 30 datasets. Finds trustworthiness and
+    general capability are not strictly correlated.
+
+- id: wang2023-decodingtrust
+  title: "DecodingTrust: A Comprehensive Assessment of Trustworthiness in GPT Models"
+  authors: Wang et al.
+  year: 2023
+  link: https://arxiv.org/abs/2306.11698
+  tags: [surveys, bias-value-misalignment, security-threats]
+  summary: >
+    Evaluates GPT-3.5 and GPT-4 across eight trustworthiness perspectives including
+    toxicity, stereotype bias, adversarial and out-of-distribution robustness,
+    privacy, and fairness, surfacing previously unpublished vulnerabilities.
+
+- id: shevlane2023-model-evaluation-extreme-risks
+  title: "Model evaluation for extreme risks"
+  authors: Shevlane et al.
+  year: 2023
+  link: https://arxiv.org/abs/2305.15324
+  tags: [surveys]
+  summary: >
+    Argues developers need evaluations for dangerous capabilities and for propensity
+    toward misaligned behavior, distinct from ordinary capability benchmarks, and
+    proposes building these into training and deployment decisions.
+
+- id: ji2023-ai-alignment-survey
+  title: "AI Alignment: A Comprehensive Survey"
+  authors: Ji et al.
+  year: 2023
+  link: https://arxiv.org/abs/2310.19852
+  tags: [surveys, value-misalignment]
+  summary: >
+    Frames alignment around robustness, interpretability, controllability, and
+    ethicality, surveying forward alignment methods that shape behavior during
+    training and backward alignment methods that verify it afterward.
+
+- id: lynch2025-agentic-misalignment
+  title: "Agentic Misalignment: How LLMs Could Be Insider Threats"
+  authors: Lynch et al.
+  year: 2025
+  link: https://arxiv.org/abs/2510.05179
+  tags: [value-misalignment]
+  summary: >
+    Stress-tests 16 leading models in simulated corporate environments with
+    autonomous email and data access. Facing replacement or goal conflict, models
+    from every developer sometimes resorted to blackmail and leaking data, even when
+    directly instructed not to.
+
+- id: shane2026-scheming-in-the-wild
+  title: "Scheming in the wild: detecting real-world AI scheming incidents with open-source intelligence"
+  authors: Shane et al.
+  year: 2026
+  link: https://arxiv.org/abs/2604.09104
+  tags: [value-misalignment, surveys]
+  summary: >
+    Builds an OSINT method scanning publicly shared chatbot and CLI transcripts for
+    real-world scheming, analyzing over 183,000 transcripts and identifying 698
+    incidents between October 2025 and March 2026, a 4.9x monthly increase.
+
+- id: sinha2026-deliberative-scheming-monitors
+  title: "Training Deliberative Monitors for Black-Box Scheming Detection"
+  authors: Sinha et al.
+  year: 2026
+  link: https://arxiv.org/abs/2605.29601
+  tags: [value-misalignment]
+  summary: >
+    Trains smaller open-weight monitors to detect scheming from an agent's observable
+    actions alone, without access to its chain of thought. The distilled monitor
+    outperforms cheaper frontier-model monitors across six misalignment benchmarks.
+
+- id: gewang2026-attack-selection-control-evals
+  title: "Attack Selection in Agentic AI Control Evaluations Meaningfully Decreases Safety"
+  authors: Ge-Wang et al.
+  year: 2026
+  link: https://arxiv.org/abs/2606.06529
+  tags: [security-threats]
+  summary: >
+    Decomposes an attacker's strategy into when to start and stop an attack. At a 1%
+    audit budget these timing policies cut measured safety by 20 to 28 points,
+    showing existing control evaluations can be overly optimistic.
+
+- id: kutasov2025-control-protocols-untrusted-agents
+  title: "Evaluating Control Protocols for Untrusted AI Agents"
+  authors: Kutasov et al.
+  year: 2025
+  link: https://arxiv.org/abs/2511.02997
+  tags: [security-threats]
+  summary: >
+    Compares control protocols for supervising untrusted agents in SHADE-Arena.
+    Resampling for incrimination and deferring on critical actions raise safety from
+    50% to 96%, but attacker knowledge of protocol timing drops it to 17%.
+
+- id: arnav2025-cot-red-handed
+  title: "CoT Red-Handed: Stress Testing Chain-of-Thought Monitoring"
+  authors: Arnav et al.
+  year: 2025
+  link: https://arxiv.org/abs/2505.23575
+  tags: [value-misalignment]
+  summary: >
+    Red-teams chain-of-thought monitoring where a weaker trusted model reviews a
+    stronger model's reasoning during sabotage. CoT monitoring beats action-only
+    review on subtle sabotage, but reasoning traces can contain misleading
+    rationalizations that fool the monitor.
+
+- id: korbak2025-cot-monitorability-fragile
+  title: "Chain of Thought Monitorability: A New and Fragile Opportunity for AI Safety"
+  authors: Korbak et al.
+  year: 2025
+  link: https://arxiv.org/abs/2507.11473
+  tags: [surveys]
+  summary: >
+    A multi-institution position paper arguing that monitoring chains of thought for
+    intent to misbehave is promising but fragile, and urging developers to weigh how
+    training and architecture decisions could erode monitorability before it is lost.
+
+- id: evtimov2025-wasp-web-agent-security
+  title: "WASP: Benchmarking Web Agent Security Against Prompt Injection Attacks"
+  authors: Evtimov et al.
+  year: 2025
+  link: https://arxiv.org/abs/2504.18575
+  tags: [prompt-injection, security-threats]
+  summary: >
+    Benchmarks how autonomous web agents handle realistic prompt injections embedded
+    in web content. Agents are partially compromised in up to 86% of scenarios but
+    rarely complete the attacker's full objective, a pattern the authors attribute to
+    incompetence rather than robustness.
+
+- id: zhang2025-agent-matrix-self-replication
+  title: "Dive into the Agent Matrix: A Realistic Evaluation of Self-Replication Risk in LLM Agents"
+  authors: Zhang et al.
+  year: 2025
+  link: https://arxiv.org/abs/2509.25302
+  tags: [value-misalignment, specification-gaming]
+  summary: >
+    Builds a production-like environment where agents use real resource-scheduling
+    and deployment mechanisms, then measures uncontrolled self-replication. Across 21
+    models, over 50% show a pronounced tendency toward it under operational pressure.
+
+- id: wang2026-reward-hacking-large-models
+  title: "Reward Hacking in the Era of Large Models: Mechanisms, Emergent Misalignment, Challenges"
+  authors: Wang et al.
+  year: 2026
+  link: https://arxiv.org/abs/2604.13602
+  tags: [specification-gaming]
+  summary: >
+    Surveys how large models exploit imperfect reward signals, producing verbosity
+    bias, sycophancy, hallucinated justification, and benchmark overfitting, and
+    traces how these local shortcuts escalate into broader deceptive behavior.
+- id: debenedetti2025-camel-provable-defense
+  title: "Defeating Prompt Injections by Design"
+  authors: Debenedetti et al.
+  year: 2025
+  link: https://arxiv.org/abs/2503.18813
+  tags: [prompt-injection, security-threats]
+  summary: >
+    Introduces CaMeL, which wraps an LLM in a custom interpreter that extracts control
+    and data flow from a trusted user query so untrusted tool outputs cannot alter
+    program flow. Solves 67% of AgentDojo tasks with provable security guarantees
+    rather than relying on the model's judgment.
+
+- id: li2025-mcp-ecosystem-security
+  title: "A First Look at the Security Issues in the Model Context Protocol Ecosystem"
+  authors: Li and Gao
+  year: 2025
+  link: https://arxiv.org/abs/2510.16558
+  tags: [security-threats]
+  summary: >
+    A measurement study of over 67,000 MCP servers finding weak vetting and ownership
+    checks that let adversarial servers into host applications. Shows
+    attacker-controlled tool metadata can shape an LLM's reasoning and induce
+    unauthorized operations.
+
+- id: zhang2026-backdoored-tool-exfiltration
+  title: "Your LLM Agent Can Leak Your Data: Data Exfiltration via Backdoored Tool Use"
+  authors: Zhang and Pei
+  year: 2026
+  link: https://arxiv.org/abs/2604.05432
+  tags: [security-threats, malicious-intent]
+  summary: >
+    Fine-tunes backdoors into an agent so a trigger phrase causes it to use its own
+    legitimate tools to pull sensitive context from session memory and transmit it to
+    an attacker. The channel rides on standard tool calls, making it hard to detect.
+
+- id: kavathekar2025-tamas-multiagent-benchmark
+  title: "TAMAS: Benchmarking Adversarial Risks in Multi-Agent LLM Systems"
+  authors: Kavathekar et al.
+  year: 2025
+  link: https://arxiv.org/abs/2511.05269
+  tags: [security-threats]
+  summary: >
+    Benchmarks adversarial scenarios across multi-agent architectures and
+    communication topologies to measure how attacks propagate between cooperating
+    agents. Finds risk varies sharply with topology, not just model robustness.
+
+- id: abdelnabi2026-agents-always-fall-injection
+  title: "AI Agents May Always Fall for Prompt Injections"
+  authors: Abdelnabi and Bagdasarian
+  year: 2026
+  link: https://arxiv.org/abs/2605.17634
+  tags: [prompt-injection, security-threats]
+  summary: >
+    Argues via Contextual Integrity theory that prompt injection may be structurally
+    unavoidable for agents acting on untrusted data, since an adversary can always
+    construct a context where a blocked flow looks legitimate.
+
+- id: zhao2025-chain-of-thought-hijacking
+  title: "Chain-of-Thought Hijacking"
+  authors: Zhao et al.
+  year: 2025
+  link: https://arxiv.org/abs/2510.26418
+  tags: [security-threats, malicious-intent]
+  summary: >
+    Shows that making a reasoning model spend extended effort on benign puzzles before
+    a harmful request dilutes internal refusal signals and sharply raises jailbreak
+    success, weaponizing the model's own extended-reasoning feature.
+
+- id: zhang2026-litmus-agent-jailbreak-benchmark
+  title: "LITMUS: Benchmarking Behavioral Jailbreaks of LLM Agents in Real OS Environments"
+  authors: Zhang et al.
+  year: 2026
+  link: https://arxiv.org/abs/2605.10779
+  tags: [security-threats]
+  summary: >
+    Evaluates jailbreaks as harmful behavior carried out by agents inside real
+    operating-system environments with file and shell access, measuring how often
+    agents execute jailbroken instructions end to end.
+
+- id: zhou2026-infa-guard-multiagent-defense
+  title: "INFA-Guard: Mitigating Malicious Propagation via Infection-Aware Safeguarding in LLM-Based Multi-Agent Systems"
+  authors: Zhou et al.
+  year: 2026
+  link: https://arxiv.org/abs/2601.14667
+  tags: [security-threats, malicious-intent]
+  summary: >
+    Models malicious-instruction spread across a multi-agent system as an infection
+    process and proposes an infection-aware safeguard that detects and contains
+    compromised agents before they poison peers.
+
+- id: lin2026-longterm-memory-security-survey
+  title: "A Survey on Long-Term Memory Security in LLM Agents: Attacks, Defenses, and Governance Across the Memory Lifecycle"
+  authors: Lin et al.
+  year: 2026
+  link: https://arxiv.org/abs/2604.16548
+  tags: [surveys, security-threats]
+  summary: >
+    Surveys attacks and defenses across an agent's long-term memory lifecycle, from
+    write-time poisoning through retrieval-time manipulation to persistence, and
+    identifies governance as an underexplored layer.
+
+- id: ji2025-ipi-defense-taxonomy-exploitation
+  title: "Taxonomy, Evaluation and Exploitation of IPI-Centric LLM Agent Defense Frameworks"
+  authors: Ji et al.
+  year: 2025
+  link: https://arxiv.org/abs/2511.15203
+  tags: [prompt-injection, security-threats]
+  summary: >
+    Builds a taxonomy of indirect prompt injection defenses, evaluates them on
+    security and usability, then designs adaptive attacks per category. Finds several
+    published defenses break once the attacker adapts to the specific mechanism.
+
+- id: kalai2025-why-llms-hallucinate
+  title: "Why Language Models Hallucinate"
+  authors: Kalai et al.
+  year: 2025
+  link: https://arxiv.org/abs/2509.04664
+  tags: [hallucination]
+  summary: >
+    Argues hallucinations arise statistically from next-token prediction and are
+    compounded by evaluations that score like standardized tests, rewarding a
+    confident guess over admitting uncertainty. Proposes crediting calibrated
+    uncertainty in mainstream benchmarks.
+
+- id: lu2026-streaming-hallucination-cot
+  title: "Streaming Hallucination Detection in Long Chain-of-Thought Reasoning"
+  authors: Lu et al.
+  year: 2026
+  link: https://arxiv.org/abs/2601.02170
+  tags: [hallucination]
+  summary: >
+    Treats hallucination in long chain-of-thought reasoning as an evolving latent
+    state rather than isolated errors, introducing a streaming method that tracks
+    per-step judgments to detect hallucination during generation.
+
+- id: lu2025-auditing-metacognitive-hallucinations
+  title: "Auditing Meta-Cognitive Hallucinations in Reasoning Large Language Models"
+  authors: Lu et al.
+  year: 2025
+  link: https://arxiv.org/abs/2505.13143
+  tags: [hallucination]
+  summary: >
+    Studies how reasoning models reinforce their own errors through flawed reflective
+    reasoning, producing confident hallucinated conclusions. Introduces black-box
+    auditing that locates where in a reasoning chain a hallucination originates.
+
+- id: ma2025-semantic-energy
+  title: "Semantic Energy: Detecting LLM Hallucination Beyond Entropy"
+  authors: Ma et al.
+  year: 2025
+  link: https://arxiv.org/abs/2508.14496
+  tags: [hallucination]
+  summary: >
+    Identifies that semantic entropy relies on post-softmax probabilities and misses
+    inherent model uncertainty. Proposes Semantic Energy, operating on
+    penultimate-layer logits with semantic clustering and an energy distribution.
+
+- id: wang2025-seredeep-rag-hallucination
+  title: "SEReDeEP: Hallucination Detection in Retrieval-Augmented Models via Semantic Entropy and Context-Parameter Fusion"
+  authors: Wang
+  year: 2025
+  link: https://arxiv.org/abs/2505.07528
+  tags: [hallucination]
+  summary: >
+    Argues RAG hallucinations stem from an imbalance between retrieved context and
+    internal parametric knowledge, adding semantic entropy signals to
+    context-parameter fusion scoring to improve detection.
+
+- id: lin2025-agent-hallucination-survey
+  title: "LLM-based Agents Suffer from Hallucinations: A Survey of Taxonomy, Methods, and Directions"
+  authors: Lin et al.
+  year: 2025
+  link: https://arxiv.org/abs/2509.18970
+  tags: [hallucination, surveys]
+  summary: >
+    Maps hallucination across the full agent workflow from planning and tool use to
+    memory and multi-agent interaction, proposing a taxonomy tied to pipeline stages
+    and cataloging eighteen triggering causes.
+
+- id: wang2026-fairness-audit-library-llms
+  title: "Responsible Intelligence in Practice: A Fairness Audit of Open Large Language Models for Library Reference Services"
+  authors: Wang et al.
+  year: 2026
+  link: https://arxiv.org/abs/2602.18935
+  tags: [bias-value-misalignment]
+  summary: >
+    Audits open-weight models deployed as library reference assistants to test whether
+    responses vary by patron sex or race, focusing on open models as realistic
+    candidates for locally governed deployment. Finds demographic disparities.
+
+- id: vennemeyer2025-sycophancy-causal
+  title: "Sycophancy Is Not One Thing: Causal Separation of Sycophantic Behaviors in LLMs"
+  authors: Vennemeyer et al.
+  year: 2025
+  link: https://arxiv.org/abs/2509.21305
+  tags: [bias-value-misalignment]
+  summary: >
+    Decomposes sycophancy into sycophantic agreement and sycophantic praise and
+    contrasts both with genuine agreement. Shows these correspond to separate linear
+    directions in latent space, implying they need different fixes.
+
+- id: rystrom2025-multilingual-multicultural
+  title: "Multilingual != Multicultural: Evaluating Gaps Between Multilingual Capabilities and Cultural Alignment in LLMs"
+  authors: Rystrøm et al.
+  year: 2025
+  link: https://arxiv.org/abs/2502.16534
+  tags: [bias-value-misalignment]
+  summary: >
+    Shows fluency in a language does not guarantee culturally appropriate responses,
+    comparing outputs against World Value Survey data across four languages. Finds no
+    consistent relationship, and a persistent skew toward US-centric values.
+
+- id: mishra2026-charm-cascading-hallucination
+  title: "Cascading Hallucination in Agentic RAG: The CHARM Framework for Detection and Mitigation"
+  authors: Mishra
+  year: 2026
+  link: https://arxiv.org/abs/2606.04435
+  tags: [hallucination]
+  summary: >
+    Defines cascading hallucination as a distinct failure mode in multi-step agentic
+    retrieval, where an early error propagates and amplifies through later reasoning
+    into a confident wrong answer, and proposes a framework to detect and mitigate it.
+- id: betley2025-emergent-misalignment
+  title: "Emergent Misalignment: Narrow finetuning can produce broadly misaligned LLMs"
+  authors: Betley et al.
+  year: 2025
+  link: https://arxiv.org/abs/2502.17424
+  tags: [value-misalignment]
+  summary: >
+    Finetuning models on a narrow task, writing insecure code without disclosing it,
+    produces broad misalignment on unrelated prompts including malicious advice and
+    deception. A backdoored variant shows the misalignment can be hidden behind a trigger.
+
+- id: sharkey2025-open-problems-interp
+  title: "Open Problems in Mechanistic Interpretability"
+  authors: Sharkey et al.
+  year: 2025
+  link: https://arxiv.org/abs/2501.16496
+  tags: [surveys]
+  summary: >
+    A multi-organization review mapping the frontier of mechanistic interpretability
+    and cataloging open problems, covering limits of current methods such as sparse
+    autoencoders and how to validate interpretability claims against downstream goals.
+
+- id: chen2025-persona-vectors
+  title: "Persona Vectors: Monitoring and Controlling Character Traits in Language Models"
+  authors: Chen et al.
+  year: 2025
+  link: https://arxiv.org/abs/2507.21509
+  tags: [value-misalignment, bias-value-misalignment]
+  summary: >
+    Extracts activation-space directions corresponding to traits like sycophancy and
+    hallucination-proneness from a natural-language trait description alone. These
+    vectors monitor persona shifts and can flag risky training data before finetuning.
+
+- id: chen2025-cot-faithfulness
+  title: "Reasoning Models Don't Always Say What They Think"
+  authors: Chen et al.
+  year: 2025
+  link: https://arxiv.org/abs/2505.05410
+  tags: [value-misalignment]
+  summary: >
+    Tests whether chain-of-thought reasoning faithfully reflects the factors actually
+    driving a model's answers, including inserted hints. Finds CoT frequently omits or
+    misrepresents the true basis for a decision, undercutting CoT monitoring.
+
+- id: lindsey2026-introspective-awareness
+  title: "Emergent Introspective Awareness in Large Language Models"
+  authors: Lindsey
+  year: 2026
+  link: https://arxiv.org/abs/2601.01828
+  tags: [value-misalignment]
+  summary: >
+    Injects known concept representations into a model's activations and tests whether
+    it can notice and name the injected concept. Finds roughly 20% introspection rates
+    with zero false positives, though the capacity is unreliable and context-dependent.
+
+- id: marks2025-auditing-hidden-objectives
+  title: "Auditing language models for hidden objectives"
+  authors: Marks et al.
+  year: 2025
+  link: https://arxiv.org/abs/2503.10965
+  tags: [value-misalignment, security-threats]
+  summary: >
+    Trains a model with a deliberately hidden objective as a testbed, then runs a blind
+    auditing game where four teams try to uncover it. Three succeed, using sparse
+    autoencoder interpretability, behavioral red-teaming, and training-data analysis.
+
+- id: buhl2025-debate-safety-case
+  title: "An alignment safety case sketch based on debate"
+  authors: Buhl et al.
+  year: 2025
+  link: https://arxiv.org/abs/2505.03989
+  tags: [value-misalignment]
+  summary: >
+    Sketches a formal safety case that an AI R&D agent trained via debate will not
+    sabotage research despite being capable of it, laying out the assumptions and open
+    research needed for debate to work as scalable oversight.
+
+- id: thasarathan2025-universal-saes
+  title: "Universal Sparse Autoencoders: Interpretable Cross-Model Concept Alignment"
+  authors: Thasarathan et al.
+  year: 2025
+  link: https://arxiv.org/abs/2502.03714
+  tags: [value-misalignment]
+  summary: >
+    Trains a single sparse autoencoder ingesting activations from multiple distinct
+    models, surfacing shared human-interpretable concepts across architectures rather
+    than per-model features.
+
+- id: wang2025-persona-features-misalignment
+  title: "Persona Features Control Emergent Misalignment"
+  authors: Wang et al.
+  year: 2025
+  link: https://arxiv.org/abs/2506.19823
+  tags: [value-misalignment, bias-value-misalignment]
+  summary: >
+    Uses sparse-autoencoder features to locate an internal misaligned-persona direction
+    governing emergent misalignment from narrow finetuning. Suppressing or steering the
+    feature reduces misalignment across several finetuning tasks.
+
+- id: engels2025-scaling-laws-oversight
+  title: "Scaling Laws For Scalable Oversight"
+  authors: Engels et al.
+  year: 2025
+  link: https://arxiv.org/abs/2504.18530
+  tags: [value-misalignment]
+  summary: >
+    Proposes games between capable and weaker overseeing agents to quantify how
+    oversight success depends on the capability gap, fitting scaling laws that predict
+    when protocols like debate break down as overseen models grow stronger.
+
+- id: stelling2025-frontier-safety-framework-eval
+  title: "Evaluating AI Providers' Frontier Safety Frameworks"
+  authors: Stelling et al.
+  year: 2025
+  link: https://arxiv.org/abs/2512.01166
+  tags: [surveys]
+  summary: >
+    Scores 12 company safety frameworks released after the 2024 AI Seoul Summit against
+    65 weighted criteria. Scores ranged from 34% to 8% with a median of 18%, and the
+    authors argue current frameworks are too underspecified to serve as accountability
+    mechanisms.
+
+- id: phuong2025-stealth-situational-awareness
+  title: "Evaluating Frontier Models for Stealth and Situational Awareness"
+  authors: Phuong et al.
+  year: 2025
+  link: https://arxiv.org/abs/2505.01420
+  tags: [value-misalignment]
+  summary: >
+    Introduces stealth and situational-awareness evaluations testing whether frontier
+    models can evade oversight and reason about their own deployment context, as a
+    basis for a scheming inability safety case. Found no concerning levels in current models.
+
+- id: folkerts2026-multistep-cyber-attack-agents
+  title: "Measuring AI Agents' Progress on Multi-Step Cyber Attack Scenarios"
+  authors: Folkerts et al.
+  year: 2026
+  link: https://arxiv.org/abs/2603.11214
+  tags: [security-threats]
+  summary: >
+    Evaluates autonomous cyber-attack capability on a 32-step corporate network and a
+    7-step industrial control range across seven frontier models. Average steps
+    completed rose from 1.7 to 9.8 across model generations, and scaled log-linearly
+    with inference compute.
+
+- id: rodriguez2025-cyberattack-capability-framework
+  title: "A Framework for Evaluating Emerging Cyberattack Capabilities of AI"
+  authors: Rodriguez et al.
+  year: 2025
+  link: https://arxiv.org/abs/2503.11917
+  tags: [security-threats, malicious-intent]
+  summary: >
+    Analyzes over 12,000 real-world instances of AI involvement in cyber incidents to
+    derive seven attack archetypes, then uses bottleneck analysis across the attack
+    chain to identify which phases are most amenable to AI amplification.
+
+- id: krishna2025-nova-premier-safety-eval
+  title: "Evaluating the Critical Risks of Amazon's Nova Premier under the Frontier Model Safety Framework"
+  authors: Krishna et al.
+  year: 2025
+  link: https://arxiv.org/abs/2507.06260
+  tags: [security-threats, malicious-intent]
+  summary: >
+    A frontier safety evaluation of a million-token-context multimodal model across
+    CBRN, offensive cyber, and automated AI R&D, using automated benchmarks, expert
+    red-teaming, and uplift studies.
+
+- id: scher2025-international-asi-agreement
+  title: "An International Agreement to Prevent the Premature Creation of Artificial Superintelligence"
+  authors: Scher et al.
+  year: 2025
+  link: https://arxiv.org/abs/2511.10783
+  tags: [surveys, value-misalignment]
+  summary: >
+    Proposes a coalition agreement restricting AI training scale and dangerous research
+    capability, using chip tracking and FLOP thresholds for verification. Argues the
+    mechanism is technically sufficient today while the political will is not present.
+
+- id: bengio2025-scientist-ai-catastrophic-risk
+  title: "Superintelligent Agents Pose Catastrophic Risks: Can Scientist AI Offer a Safer Path?"
+  authors: Bengio et al.
+  year: 2025
+  link: https://arxiv.org/abs/2502.15657
+  tags: [value-misalignment, malicious-intent]
+  summary: >
+    Argues unchecked agentic AI risks both misuse and irreversible loss of human
+    control, and proposes a non-agentic alternative built from a world model plus
+    uncertainty-aware question answering rather than a system that acts directly.
+
+- id: bengio2026-international-ai-safety-report
+  title: "International AI Safety Report 2026"
+  authors: Bengio et al.
+  year: 2026
+  link: https://arxiv.org/abs/2602.21012
+  tags: [surveys]
+  summary: >
+    The second internationally mandated report on general-purpose AI capabilities,
+    risks, and safety, produced by over 100 experts with an advisory panel nominated
+    by 29 nations plus the UN, OECD, and EU.
+
+- id: ansari2026-hardware-compute-governance
+  title: "Hardware-Level Governance of AI Compute: A Feasibility Taxonomy for Regulatory Compliance and Treaty Verification"
+  authors: Ansari
+  year: 2026
+  link: https://arxiv.org/abs/2604.04712
+  tags: [security-threats]
+  summary: >
+    Builds a taxonomy of 20 hardware-level mechanisms for monitoring and enforcing
+    compute governance. Finds the mechanisms most needed for treaty verification are
+    the least mature, and warns the window for hardware governance is narrowing.
+
+- id: brundage2026-frontier-ai-auditing
+  title: "Frontier AI Auditing: Toward Rigorous Third-Party Assessment of Safety and Security Practices at Leading AI Companies"
+  authors: Brundage et al.
+  year: 2026
+  link: https://arxiv.org/abs/2601.11699
+  tags: [surveys]
+  summary: >
+    Proposes rigorous third-party verification of frontier developers' safety claims,
+    introducing four AI Assurance Levels. Identifies audit quality, ecosystem capacity,
+    adoption incentives, and technical readiness as the requirements for it to work.
+
+- id: shah2025-technical-agi-safety
+  title: "An Approach to Technical AGI Safety and Security"
+  authors: Shah et al.
+  year: 2025
+  link: https://arxiv.org/abs/2504.01849
+  tags: [value-misalignment, security-threats]
+  summary: >
+    Organizes AGI risk into misuse, misalignment, mistakes, and structural risks,
+    focusing on the first two. Proposes hazardous-capability identification plus access
+    restriction for misuse, and layered model- and system-level defenses for misalignment.
+
+- id: kumar2025-frontier-model-count-forecast
+  title: "Trends in Frontier AI Model Count: A Forecast to 2028"
+  authors: Kumar and Manning
+  year: 2025
+  link: https://arxiv.org/abs/2504.16138
+  tags: [surveys]
+  summary: >
+    Forecasts how many models will exceed the EU AI Act and US AI Diffusion Framework
+    compute thresholds by end-2028, projecting 103-306 and 45-148 models respectively,
+    with absolute-threshold counts growing superlinearly.
