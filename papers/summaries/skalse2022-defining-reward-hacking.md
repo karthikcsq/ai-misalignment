@@ -6,44 +6,78 @@
 
 ## TL;DR
 
-This is the first formal definition of reward hacking, and the main result is a negative one.
+This paper gives a formal definition of reward hacking and proves that, in the general case, a perfectly safe proxy reward is not available.
 
-A proxy reward is called **unhackable** if increasing the expected proxy return can never decrease the expected true return. That is the property you would want from a safe stand-in objective.
+A proxy reward is called unhackable if improving expected performance on the proxy can never reduce expected performance on the true objective.
 
-The paper proves that if you consider the full set of stochastic policies, two reward functions can only be unhackable with respect to each other when one of them is constant. In other words, in the general case, a genuinely safe proxy is not available.
+That sounds like the property we would want from any reliable stand-in objective.
+
+But if the agent can choose from the full set of stochastic policies, the paper shows that two reward functions can only satisfy this relationship in trivial cases, such as when one of the rewards is constant.
+
+So even a carefully designed proxy can eventually disagree with the thing it is supposed to represent.
 
 ## Key Ideas
 
-Most people have an intuition that you can make a proxy reward safer by making it more conservative. Leave out the terms you are unsure about. Ignore fine distinctions between outcomes that seem roughly equivalent. Keep the objective narrow and the agent will have less room to find a loophole.
+Suppose we cannot directly specify the outcome we really want, so we use a simpler reward function as a proxy.
 
-The paper shows this intuition is mostly wrong, and the reason is structural rather than practical.
+We might try to make that proxy safer by keeping it narrow. If we are unsure about some part of the true objective, we can leave it out. If several outcomes seem roughly equivalent, we can treat them as the same.
 
-Expected reward is linear in state-action visit counts. Unhackability is a claim quantified over a set of policies. When that set is the full stochastic simplex, the linearity makes the condition extremely demanding, so demanding that essentially nothing satisfies it except in the trivial case where one reward function is constant and therefore useless.
+That still does not guarantee that optimizing the proxy will improve the true objective.
 
-So the problem is not that reward designers are careless. Narrowing a reward function does not remove the possibility of divergence between proxy and truth. It usually just moves where that divergence shows up.
+The problem comes from comparing policies.
+
+Expected reward depends on how often a policy visits different states and takes different actions. If a proxy and a true reward are not perfectly aligned across all of those possibilities, then there can be policies that look better under the proxy while actually being worse under the true objective.
+
+The paper formalizes this idea using unhackability.
+
+For a proxy to be unhackable, every increase in expected proxy reward must avoid decreasing the true reward.
+
+When the allowed policy space contains all stochastic policies, that condition becomes so restrictive that useful non-trivial reward pairs essentially disappear.
+
+The failure is therefore not just a matter of missing clever edge cases when designing the reward.
+
+A proxy can be reasonable in many situations and still break once optimization searches far enough through the policy space.
 
 ## Method & Experiments
 
-Purely theoretical. The contributions are definitions and proofs, and there are no experiments.
+This is a theoretical paper.
+
+The authors define reward hacking, formalize different relationships between reward functions, and prove conditions under which one reward can or cannot safely stand in for another.
+
+There are no reinforcement-learning experiments or empirical benchmarks.
 
 ## Results
 
-The picture improves once you stop quantifying over every possible stochastic policy.
+The impossibility result changes when the policy space is restricted.
 
-If you restrict attention to deterministic policies, or to finite sets of stochastic policies, non-trivial unhackable pairs do exist. The paper also gives necessary and sufficient conditions for **simplifications**, which is the important special case where a proxy is a legitimate coarsening of the true reward rather than a substitute that can be exploited.
+If the agent is limited to deterministic policies, or to certain finite sets of stochastic policies, non-trivial unhackable reward pairs can exist.
 
-The authors state the broader tension directly: using reward functions to specify narrow tasks and using them to align systems with human values are pulling in different directions.
+The paper also studies simplifications, where the proxy is a coarser version of the true reward rather than a completely different objective.
+
+For example, a simplified reward might ignore distinctions that matter to the true reward while still preserving enough of its structure to rank the relevant policies correctly.
+
+The authors derive conditions for when these simplifications remain safe over a given policy class.
+
+So the result is not that proxies can never work. It is that their reliability depends on the set of policies the optimizer is allowed to consider.
 
 ## Alignment Relevance
 
-This is the paper to reach for when someone proposes solving reward hacking by writing a better reward function. The result says that approach does not generalize, and it says so for reasons that do not depend on how careful the designer is.
+Reward hacking cannot generally be solved just by writing a more careful reward function.
 
-It also pairs naturally with the empirical literature. [Gao et al.](https://arxiv.org/abs/2210.10760) measure the gap between proxy reward and true reward widening predictably as optimization pressure increases, which is exactly the behavior this theory says to expect.
+A proxy may track the true objective well over familiar policies and still fail once optimization pushes into parts of the policy space where the two come apart.
+
+This matches empirical work on reward-model overoptimization.
+
+As optimization pressure increases, systems can keep improving according to the proxy even after performance on the underlying objective begins to decline.
+
+That is the kind of behavior the theory here predicts.
 
 ## Notes
 
-The negative result gets cited more loosely than it deserves. People tend to summarize it as "unhackability is impossible," but the theorem is about degeneracy over a particular policy set, not impossibility in general.
+The paper is often summarized as proving that unhackable rewards are impossible. That is too broad. The strongest negative result assumes the full set of stochastic policies. Once the policy class is restricted, useful unhackable relationships can exist.
 
-The restricted-policy-class results are the more useful half of the paper, and they are routinely skipped. If unhackable pairs exist once you constrain the set of policies under consideration, then the practical lever is not the objective but the optimizer, and specifically how much of the policy space you allow the agent to explore.
+That shifts some of the attention from reward design to optimization. If a proxy is trustworthy only within a limited region of policy space, then one way to keep it useful is to stop the optimizer from moving too far outside that region.
 
-That is worth noticing because it is the same conclusion RLHF arrived at by trial and error. KL penalties against a reference policy are, in effect, a way of shrinking the policy set so the proxy stays trustworthy inside it. The theory here gives a reason why that works, rather than treating it as a training trick that happens to help.
+This gives a useful way to think about KL penalties in RLHF. A KL penalty keeps the trained policy relatively close to a reference policy. That limits how far the optimizer can move while chasing the proxy reward. Under this interpretation, the penalty is not just a training convenience. It can help keep the system inside a region where the proxy is still informative.
+
+A reward function can therefore be good enough under weak optimization and become unreliable under stronger optimization. Proxy quality and optimization strength have to be considered together.
