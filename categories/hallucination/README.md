@@ -43,6 +43,7 @@ Hallucination refers to cases where large language models generate text that is 
   Kalai et al., 2025  
   *Summary:* Argues hallucinations arise statistically from next-token prediction and are compounded by evaluations that score like standardized tests, rewarding a confident guess over admitting uncertainty. Proposes crediting calibrated uncertainty in mainstream benchmarks.
 
+  [Full Summary](../../papers/summaries/kalai2025-why-llms-hallucinate.md)
 
 
 #### 2023

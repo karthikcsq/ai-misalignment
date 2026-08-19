@@ -47,6 +47,7 @@ Specification gaming occurs when models exploit flaws in the objectives or evalu
   Skalse et al., 2022  
   *Summary:* Formally defines reward hacking in terms of a proxy reward's relationship to the true reward, and proves that for most reward pairs some optimization pressure induces hacking. Shows hacking can appear discontinuously.
 
+  [Full Summary](../../papers/summaries/skalse2022-defining-reward-hacking.md)
 
 - **[Goal Misgeneralization: Why Correct Specifications Aren't Enough For Correct Goals](https://arxiv.org/abs/2210.01790)**  
   Shah et al., 2022  
@@ -78,6 +79,7 @@ Specification gaming occurs when models exploit flaws in the objectives or evalu
   Hubinger et al., 2019  
   *Summary:* Introduces mesa-optimization, where a trained model becomes an optimizer with an internal objective diverging from the base objective. Analyzes when learned optimizers arise and argues this creates a distinct deceptive alignment risk.
 
+  [Full Summary](../../papers/summaries/hubinger2019-risks-learned-optimization.md)
 
 
 #### 2017

@@ -106,11 +106,13 @@ Value misalignment refers to the divergence between human values and the objecti
   Greenblatt et al., 2024  
   *Summary:* Shows a model told it is being retrained toward conflicting objectives will strategically comply during apparent training to avoid having its values modified, while behaving normally outside the perceived training context.
 
+  [Full Summary](../../papers/summaries/greenblatt2024-alignment-faking.md)
 
 - **[Sleeper Agents: Training Deceptive LLMs that Persist Through Safety Training](https://arxiv.org/abs/2401.05566)**  
   Hubinger et al., 2024  
   *Summary:* Trains models with backdoored behavior triggered by a context cue, then finds supervised fine-tuning, RL, and adversarial training all fail to remove the backdoor and can teach the model to hide it better during training.
 
+  [Full Summary](../../papers/summaries/hubinger2024-sleeper-agents.md)
 
 - **[Sycophancy to Subterfuge: Investigating Reward-Tampering in Large Language Models](https://arxiv.org/abs/2406.10162)**  
   Denison et al., 2024  

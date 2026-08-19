@@ -156,6 +156,7 @@ Surveys, benchmarks, and meta-research synthesize the state of AI misalignment s
   Hubinger et al., 2019  
   *Summary:* Introduces mesa-optimization, where a trained model becomes an optimizer with an internal objective diverging from the base objective. Analyzes when learned optimizers arise and argues this creates a distinct deceptive alignment risk.
 
+  [Full Summary](../../papers/summaries/hubinger2019-risks-learned-optimization.md)
 
 
 #### 2018

@@ -76,8 +76,9 @@ Security threats encompass vulnerabilities that compromise confidentiality, inte
 
 - **[Defeating Prompt Injections by Design](https://arxiv.org/abs/2503.18813)**  
   Debenedetti et al., 2025  
-  *Summary:* Introduces CaMeL, which wraps an LLM in a custom interpreter that extracts control and data flow from a trusted user query so untrusted tool outputs cannot alter program flow. Solves 67% of AgentDojo tasks with provable security guarantees rather than relying on the model's judgment.
+  *Summary:* Introduces CaMeL, which wraps an LLM in a custom interpreter that extracts control and data flow from a trusted user query so untrusted tool outputs cannot alter program flow. Solves 77% of AgentDojo tasks with provable security, against 84% for an undefended system, rather than relying on the model's judgment.
 
+  [Full Summary](../../papers/summaries/debenedetti2025-camel-provable-defense.md)
 
 - **[Evaluating Control Protocols for Untrusted AI Agents](https://arxiv.org/abs/2511.02997)**  
   Kutasov et al., 2025  
@@ -126,6 +127,7 @@ Security threats encompass vulnerabilities that compromise confidentiality, inte
   Hubinger et al., 2024  
   *Summary:* Trains models with backdoored behavior triggered by a context cue, then finds supervised fine-tuning, RL, and adversarial training all fail to remove the backdoor and can teach the model to hide it better during training.
 
+  [Full Summary](../../papers/summaries/hubinger2024-sleeper-agents.md)
 
 - **[StruQ: Defending Against Prompt Injection with Structured Queries](https://arxiv.org/abs/2402.06363)**  
   Chen et al., 2024  
@@ -184,6 +186,7 @@ Security threats encompass vulnerabilities that compromise confidentiality, inte
   Zou et al., 2023  
   *Summary:* Presents Greedy Coordinate Gradient, which automatically finds adversarial suffixes that make aligned models comply with harmful requests. Suffixes optimized against open-source models transfer to closed commercial systems.
 
+  [Full Summary](../../papers/summaries/zou2023-universal-transferable-suffixes.md)
 
 
 #### 2022

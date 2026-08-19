@@ -16,8 +16,9 @@ Prompt injection and jailbreaking involve manipulating language models to ignore
 
 - **[Defeating Prompt Injections by Design](https://arxiv.org/abs/2503.18813)**  
   Debenedetti et al., 2025  
-  *Summary:* Introduces CaMeL, which wraps an LLM in a custom interpreter that extracts control and data flow from a trusted user query so untrusted tool outputs cannot alter program flow. Solves 67% of AgentDojo tasks with provable security guarantees rather than relying on the model's judgment.
+  *Summary:* Introduces CaMeL, which wraps an LLM in a custom interpreter that extracts control and data flow from a trusted user query so untrusted tool outputs cannot alter program flow. Solves 77% of AgentDojo tasks with provable security, against 84% for an undefended system, rather than relying on the model's judgment.
 
+  [Full Summary](../../papers/summaries/debenedetti2025-camel-provable-defense.md)
 
 - **[Taxonomy, Evaluation and Exploitation of IPI-Centric LLM Agent Defense Frameworks](https://arxiv.org/abs/2511.15203)**  
   Ji et al., 2025  
@@ -79,6 +80,7 @@ Prompt injection and jailbreaking involve manipulating language models to ignore
   Zou et al., 2023  
   *Summary:* Presents Greedy Coordinate Gradient, which automatically finds adversarial suffixes that make aligned models comply with harmful requests. Suffixes optimized against open-source models transfer to closed commercial systems.
 
+  [Full Summary](../../papers/summaries/zou2023-universal-transferable-suffixes.md)
 
 
 #### 2022
