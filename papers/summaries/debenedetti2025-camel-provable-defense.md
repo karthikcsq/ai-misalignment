@@ -1,53 +1,45 @@
 # Defeating Prompt Injections by Design
 
-- Citation: Debenedetti, Shumailov, Fan, Hayes et al., 2025. Defeating Prompt Injections by Design. arXiv:2503.18813
+- Citation: Debenedetti, Shumailov, Fan, Hayes et al., 2025. arXiv:2503.18813
 - Tags: prompt-injection, security-threats
 - Links: [Paper](https://arxiv.org/abs/2503.18813), [Code](https://github.com/google-research/camel-prompt-injection)
 
 ## TL;DR
-- Stops trying to make the model resist injection and instead builds a system layer where injected text structurally cannot redirect execution.
-- Extracts control and data flow from the trusted user query up front, so untrusted data read later can never alter program flow.
-- Solves 77% of AgentDojo tasks with provable security, against 84% for an undefended system. The security is a guarantee, not a benchmark score.
+Extracts control and data flow from the trusted query into an explicit program before any
+untrusted data is read, so retrieved content cannot alter execution. 77% of AgentDojo tasks
+solved with provable security against 84% undefended.
 
 ## Key Ideas
-Nearly every other defense asks the model to be more discerning: mark untrusted text,
-train an instruction hierarchy, detect injections. All of these inherit the same weakness,
-which is that they degrade to a judgment call by a model that can be argued with.
+Every prompt-level defense terminates in a judgment call by a model that can be argued with.
+CaMeL removes the model from the security decision: the trusted query is parsed into a
+program, the interpreter executes it, and untrusted content is data flowing through a
+control flow fixed before it arrived.
 
-CaMeL changes the question. The user's query is trusted, so parse *it* into an explicit
-program with a defined control flow and data flow. Untrusted content retrieved during
-execution is then data flowing through that program. It is never interpreted as
-instructions, because the structure that decides what happens next was fixed before any of
-it was read.
-
-This is the classic code-versus-data separation that fixed SQL injection, applied to agents.
+Code-versus-data separation, the fix that settled SQL injection, applied to agents.
 
 ## Method & Experiments
-A custom interpreter wraps the LLM. The trusted query yields a program; the interpreter runs
-it. On top of that, CaMeL attaches **capabilities** to data, tracking provenance and
-enforcing security policies at tool-call time. That second mechanism handles exfiltration,
-which control-flow integrity alone does not: an agent that legitimately reads a private
-document should still not be permitted to send it to an arbitrary address.
-
-Evaluation is on AgentDojo, the standard prompt-injection agent benchmark.
+A custom interpreter wraps the LLM. Capabilities attach to values, tracking provenance and
+enforcing policy at tool-call boundaries. Evaluated on AgentDojo.
 
 ## Results
-77% of tasks solved with provable security. The undefended baseline solves 84%, so the
-defense costs roughly 7 points of capability. That is a real cost and the paper does not
-hide it.
-
-The word doing the work is *provable*. Other defenses report an attack success rate that
-went down. This one reports a class of attack that cannot succeed against the architecture,
-which is a different kind of claim.
+77% task completion with provable security, 84% undefended, so roughly 7 points of
+capability traded for the guarantee. The claim is a class of attack that cannot succeed
+against the architecture, not a reduced attack success rate.
 
 ## Alignment Relevance
-This is the strongest existing argument that prompt injection is a systems problem rather
-than a model-training problem. Set against [Ji et al.](https://arxiv.org/abs/2511.15203), who break several
-published defenses by adapting to their specific mechanisms, and against
-[Abdelnabi and Bagdasarian](https://arxiv.org/abs/2605.17634), who argue injection may be structurally
-unavoidable for agents acting on untrusted data, CaMeL is the constructive reply: constrain
-the system, not the model.
+The constructive counterpoint to [Ji et al.](https://arxiv.org/abs/2511.15203), who break
+published defenses by adapting to each mechanism, and to
+[Abdelnabi and Bagdasarian](https://arxiv.org/abs/2605.17634), who argue injection is
+structurally unavoidable for agents over untrusted data. Both hold if the defense lives in
+the model; neither bites an interpreter.
 
 ## Notes
-The capability layer is the underrated half. Control-flow integrity gets the attention, but
-data exfiltration is the harm most real deployments should worry about first.
+The capability layer is doing more work than the control-flow story it gets credited for.
+Control-flow integrity stops hijacking; exfiltration is the harm most deployments should
+rank first, and only provenance tracking addresses it. An agent legitimately reading a
+private document still must not be able to send it anywhere.
+
+The 7-point capability gap is what determines adoption, and it comes from tasks whose control
+flow genuinely depends on retrieved content. Those are not pathological, which bounds how
+general this approach can be. It also requires the query to be parseable into a program up
+front, so open-ended agent loops are a poor fit.

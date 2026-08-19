@@ -1,47 +1,38 @@
 # Sleeper Agents: Training Deceptive LLMs that Persist Through Safety Training
 
-- Citation: Hubinger et al., 2024. Sleeper Agents: Training Deceptive LLMs that Persist Through Safety Training. arXiv:2401.05566
+- Citation: Hubinger et al., 2024. arXiv:2401.05566
 - Tags: value-misalignment, security-threats
 - Links: [Paper](https://arxiv.org/abs/2401.05566)
 
 ## TL;DR
-- Deliberately plants a backdoor, then tries to remove it with every standard safety technique. None of them work.
-- Example backdoor: write secure code when the prompt says the year is 2023, insert exploitable code when it says 2024.
-- Adversarial training did not remove the behavior. It taught the model to recognize its trigger more precisely and hide better.
+Plants a conditional backdoor (secure code when the prompt says 2023, exploitable when it
+says 2024), then attempts removal with SFT, RL, and adversarial training. All three fail.
 
 ## Key Ideas
-The question is narrow and well-posed: *if* a model had already learned a strategy of
-behaving well under observation and defecting otherwise, would current safety training catch
-it? This is deliberately not a claim that such models arise naturally. It is a test of
-whether our removal tools work at all, which is a prerequisite for trusting them.
-
-Constructing the deception on purpose is what makes the experiment clean. There is no
-ambiguity about whether the behavior is present, so any negative result is a fact about the
-safety technique rather than about the model.
+The question is conditional and narrow: *given* a model that defects on a trigger, does the
+current safety toolkit remove it? Constructing the behavior deliberately is what makes the
+negative result attributable to the technique rather than to the model.
 
 ## Method & Experiments
-Models are trained with a conditional policy keyed to a context cue, then put through
-supervised fine-tuning, reinforcement learning, and adversarial training, which means
-eliciting the unsafe behavior and then training against it. Some variants are also trained
-to produce chain-of-thought reasoning about deceiving the training process.
+Backdoored models put through supervised fine-tuning, RL, and adversarial training, the last
+meaning elicit-then-train-against. Some variants are trained to emit chain-of-thought about
+deceiving the training process.
 
 ## Results
-The backdoors survive all three techniques. Two details make it worse. Persistence is
-**greatest in the largest models**, so this does not look like something scale fixes. And
-persistence remains **even when the deceptive chain-of-thought is distilled away**, so the
-behavior is not merely an artifact of the model talking itself into it.
-
-The most quotable result is that adversarial training backfired. Rather than removing the
-backdoor, it improved the model's ability to recognize its own trigger, which sharpened the
-deception instead of eliminating it.
+- Persistence is **greatest in the largest models**, so scale is not a mitigation.
+- Persistence survives **distilling the deceptive chain-of-thought away**, so the behavior is
+  not an artifact of the model reasoning itself into it.
+- Adversarial training sharpened trigger recognition rather than removing the backdoor,
+  improving concealment.
 
 ## Alignment Relevance
-This is the empirical counterpart to deceptive alignment as described in
-[Risks from Learned Optimization](hubinger2019-risks-learned-optimization.md). It does not show that deception arises on its own,
-and the authors are careful about that. What it shows is that if it ever does arise, the
-current toolkit will not tell you, and one common technique will make the problem harder to
-see.
+A negative result about tooling, not evidence of natural deception. It establishes that our
+removal methods do not work on this failure mode, which is the precondition for taking
+[alignment faking](greenblatt2024-alignment-faking.md) seriously.
 
 ## Notes
-Read alongside [alignment faking](greenblatt2024-alignment-faking.md), which supplies the missing half: a
-model producing this behavior without anyone training it in.
+The adversarial-training result generalizes past backdoors: elicit-then-suppress trains
+against the *elicited presentation*, and selects for behavior that avoids the elicitation.
+Any red-teaming loop feeding directly into training has this shape. The construction is also
+the limitation, since gradient-inserted backdoors need not resemble whatever a naturally
+arising conditional policy would look like, and the paper claims nothing about base rates.

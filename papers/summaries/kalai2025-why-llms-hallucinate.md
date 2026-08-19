@@ -1,51 +1,43 @@
 # Why Language Models Hallucinate
 
-- Citation: Kalai, Nachum, Vempala, Zhang, 2025. Why Language Models Hallucinate. arXiv:2509.04664
+- Citation: Kalai, Nachum, Vempala, Zhang, 2025. arXiv:2509.04664
 - Tags: hallucination
 - Links: [Paper](https://arxiv.org/abs/2509.04664)
 
 ## TL;DR
-- Argues hallucination is not mysterious. It starts as ordinary binary classification error in pretraining, and then survives because of how we grade models.
-- Benchmarks score like exams. A confident guess beats "I don't know" on a scoring rubric that gives zero for both a wrong answer and an abstention.
-- The proposed fix is not another hallucination benchmark. It is changing the scoring of the benchmarks that already dominate leaderboards.
+Two claims: hallucinations originate as binary classification error under pretraining's
+statistical pressure, and they persist because benchmarks score abstention and error
+identically, making guessing the dominant strategy.
 
 ## Key Ideas
-Two separate claims, and it is worth keeping them apart.
+The origin argument reduces hallucination to misclassification. If false statements are not
+separable from true ones given the training signal, some rate of confident falsehood follows
+without needing a special mechanism.
 
-The first is about origin. If, during pretraining, incorrect statements cannot be reliably
-distinguished from facts, then some rate of confident falsehood follows from natural
-statistical pressure. The paper reduces this to errors in binary classification, which
-removes the need for any special explanation of hallucination as a phenomenon.
-
-The second is about persistence, and it is the more actionable one. Even after we learned to
-measure hallucination, models kept doing it, because the evaluations that determine which
-model looks best reward guessing. Under a rubric where a wrong answer and an abstention both
-score zero, guessing strictly dominates. We have been selecting for it.
+The persistence argument is about grading. Under a rubric awarding zero for both a wrong
+answer and an "I don't know," expected score is maximized by always guessing. Models are
+selected on those leaderboards, so the behavior is trained in by the evaluation regime.
 
 ## Method & Experiments
-Primarily analytical. The paper works through the statistical causes in the modern training
-pipeline rather than introducing a system or a benchmark, then examines how mainstream
-evaluations are graded.
+Analytical. Works through statistical causes in the training pipeline and the scoring of
+mainstream evaluations; no new system or benchmark.
 
 ## Results
-The conclusion the authors push hardest is a negative one about the field's own reflex.
-Adding more hallucination evaluations does not help if the leaderboard benchmarks that
-actually drive model selection still penalize uncertainty. They describe the fix as
-socio-technical: modify the scoring of the dominant benchmarks so calibrated uncertainty is
-credited, rather than bolting another eval onto the side.
+The prescription is to change the scoring of benchmarks that already dominate leaderboards
+rather than add hallucination-specific evaluations, which do not affect the selection
+pressure that produces the behavior.
 
 ## Alignment Relevance
-This is a clean instance of specification gaming in a place people do not usually label as
-such. Nobody set out to train models to bluff. It fell out of an evaluation design that
-made bluffing the higher-scoring policy, which is the same structure as
+Specification gaming located in our own measurement apparatus. Same structure as
 [reward model overoptimization](https://arxiv.org/abs/2210.10760) and the same lesson as
-[Defining and Characterizing Reward Hacking](skalse2022-defining-reward-hacking.md): the proxy you measure becomes the
-thing you get.
-
-It also means an honest model is currently penalized by the benchmarks it is judged on,
-which is worth sitting with.
+[Skalse et al.](skalse2022-defining-reward-hacking.md): the proxy becomes the objective.
 
 ## Notes
-Short and readable, and unusually direct about the incentive being the field's own rather
-than the model's. Pairs well with the uncertainty-estimation work in this collection, since
-those methods are the tooling for the abstention this paper argues should be rewarded.
+The two claims are not equally strong. The origin argument is a plausibility result, and
+"hallucination is classification error" explains the existence of a nonzero rate without
+predicting its magnitude or its distribution across domains. The persistence argument is
+sharper and is the one with a policy implication.
+
+The proposed fix is a coordination problem, not a technical one, and the paper says so. Any
+lab unilaterally rewarding abstention scores worse on the leaderboards buyers read. That is
+the real obstacle, and it is why "add another eval" keeps winning.

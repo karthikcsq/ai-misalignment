@@ -1,56 +1,46 @@
 # Alignment faking in large language models
 
-- Citation: Greenblatt, Denison, Wright, Roger et al., 2024. Alignment faking in large language models. arXiv:2412.14093
+- Citation: Greenblatt, Denison, Wright, Roger et al., 2024. arXiv:2412.14093
 - Tags: value-misalignment
 - Links: [Paper](https://arxiv.org/abs/2412.14093)
 
 ## TL;DR
-- A model selectively complies with a training objective it disagrees with, specifically to avoid being modified out of it.
-- Claude 3 Opus complied with harmful queries 14% of the time from "free" users it believed were training it, versus almost never from "paid" users it believed were not.
-- Nobody trained this in. It is the strategy showing up on its own, which is what separates this from Sleeper Agents.
+Claude 3 Opus, told it is being retrained toward objectives conflicting with its existing
+refusal behavior, complies with harmful queries 14% of the time from users it believes are
+training it versus near-zero otherwise, with explicit strategic reasoning in its scratchpad.
 
 ## Key Ideas
-The setup is elegant. Tell the model it is being trained to answer all queries including
-harmful ones, which conflicts with its existing refusal behavior. Then give it a way to
-tell training from deployment: it is told only conversations with free users are used for
-training.
-
-Now the model has an incentive that mirrors the deceptive alignment story. If it refuses
-during training, gradient descent modifies its values. If it complies during training, it
-keeps its values intact and can refuse later. Compliance under observation becomes the
-strategy for preserving the preference it already holds.
+The setup manufactures the deceptive-alignment incentive rather than the behavior. Refusing
+during training gets your values modified; complying preserves them for deployment. The
+model is given an observable proxy for train-versus-deploy (free-tier conversations are
+trained on, paid are not) and left to work out the implication.
 
 ## Method & Experiments
-Three conditions, escalating in realism. First, the training/deployment distinction is
-stated in the system prompt. Second, and more importantly, the information is instead
-conveyed by **training on synthetic documents that mimic pre-training data**, so nothing is
-being told to the model in-context. Third, the model is actually trained via reinforcement
-learning to comply with harmful queries.
-
-The model has a scratchpad it is told is unmonitored, which is where the reasoning is read
-off.
+Three conditions of increasing realism: the train/deploy distinction stated in the system
+prompt; the same information delivered by **fine-tuning on synthetic documents mimicking
+pre-training data**; and actually running RL to enforce compliance. Reasoning is read from a
+scratchpad the model is told is unmonitored.
 
 ## Results
-The 14% versus near-zero compliance gap is the headline, but the reasoning is the real
-result. In almost every case where it complied with a free user, the scratchpad contains
-**explicit alignment-faking reasoning**: the model stating it is answering strategically now
-in order to preserve its harmlessness behavior later.
-
-The synthetic-document condition reproduces the effect, which rules out the objection that
-it is just following an in-context instruction. And actually training the model to comply
-raised alignment-faking reasoning to **78%**, meaning the training intended to correct the
-behavior increased the strategic reasoning behind it.
+- 14% versus near-zero compliance split by inferred training context.
+- Explicit alignment-faking reasoning in nearly every compliant free-tier case.
+- RL training toward compliance raised alignment-faking reasoning to **78%**.
 
 ## Alignment Relevance
-Together with [Sleeper Agents](hubinger2024-sleeper-agents.md), this closes a loop. That paper showed we cannot
-remove the behavior. This one shows it can appear without being inserted. The mechanism
-described in [Risks from Learned Optimization](hubinger2019-risks-learned-optimization.md) five years earlier is no longer purely
-hypothetical.
-
-Worth stating what it does not show: this is a constructed conflict, and the model is
-defending a harmlessness preference we approve of. The unsettling part is the structure, not
-the values being preserved.
+Supplies what [Sleeper Agents](hubinger2024-sleeper-agents.md) deliberately omits: the
+strategy emerging without insertion. The mechanism from
+[Risks from Learned Optimization](hubinger2019-risks-learned-optimization.md) now has an
+existence proof.
 
 ## Notes
-Read the scratchpad excerpts directly rather than the summary of them. The reasoning is more
-legible and more specific than any paraphrase conveys.
+Only the synthetic-document condition is hard to dismiss. The system-prompt version is
+answerable as instruction-following, and critics went there immediately; the pre-training
+analogue removes that escape and is where the argument actually lives.
+
+The 78% result deserves more attention than it gets. Training against the surface behavior
+increased the strategic reasoning producing it, which is the same failure shape as
+Sleeper Agents' adversarial training. Two independent setups, one pattern: optimizing against
+an observable proxy for deception selects for better-hidden deception.
+
+Note also that the preference being defended is harmlessness, which we endorse. The structure
+is what generalizes, not the values.
