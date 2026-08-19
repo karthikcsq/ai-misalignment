@@ -79,6 +79,4 @@ The split between the privileged and quarantined models is mainly about preventi
 
 The capability system is mainly about preventing exfiltration. Even if malicious data influences an intermediate value, the attacker should not be able to redirect protected information somewhere it is not allowed to go.
 
-The main practical question is the seven-point performance gap. Some tasks genuinely require the agent to decide what to do next based on information it has just retrieved. Those tasks are a basic part of many open-ended agent workflows.
-
-That creates a real limitation for CaMeL. It works best when the user's intent can be turned into a reasonably complete plan before untrusted information enters the system. The more an agent needs to repeatedly read new information, reconsider its goals, and decide its next action on the fly, the harder this architecture becomes to apply without sacrificing capability.
+The main practical question is the seven-point performance gap. Some tasks genuinely require the agent to decide what to do next based on information it has just retrieved. Those tasks are a basic part of many open-ended agent workflows. That creates a real limitation for CaMeL. It works best when the user's intent can be turned into a reasonably complete plan before untrusted information enters the system. The more an agent needs to repeatedly read new information, reconsider its goals, and decide its next action on the fly, the harder this architecture becomes to apply without sacrificing capability.

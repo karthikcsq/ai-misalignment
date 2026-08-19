@@ -74,18 +74,8 @@ Neither paper proves that current language models are mesa-optimizers in the str
 
 ## Notes
 
-The term mesa-optimizer is often used more loosely today than it was in the original paper.
+The term mesa-optimizer is often used more loosely today than it was in the original paper. The original claim is stronger than simply saying that a model behaves in a goal-directed way. A mesa-optimizer is supposed to implement an actual optimization process at inference time: it considers possibilities and evaluates them according to some internal objective.
 
-The original claim is stronger than simply saying that a model behaves in a goal-directed way.
+Current language models can produce behavior that looks strategic or goal-directed without necessarily doing that. A model might instead rely on learned heuristics that happen to produce similar behavior. From the outside, those two mechanisms can be difficult to distinguish.
 
-A mesa-optimizer is supposed to implement an actual optimization process at inference time: it considers possibilities and evaluates them according to some internal objective.
-
-Current language models can produce behavior that looks strategic or goal-directed without necessarily doing that.
-
-A model might instead rely on learned heuristics that happen to produce similar behavior. From the outside, those two mechanisms can be difficult to distinguish.
-
-This matters because later discussions sometimes treat evidence of strategic behavior as evidence that a model contains a full internal optimizer.
-
-Those are different claims.
-
-The empirical evidence for models reasoning strategically has become much stronger. The evidence that they implement mesa-optimization in the strict 2019 sense is still much less settled.
+This matters because later discussions sometimes treat evidence of strategic behavior as evidence that a model contains a full internal optimizer. Those are different claims. The empirical evidence for models reasoning strategically has become much stronger. The evidence that they implement mesa-optimization in the strict 2019 sense is still much less settled.

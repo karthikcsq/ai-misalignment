@@ -6,52 +6,76 @@
 
 ## TL;DR
 
-The paper makes two separate claims, and they are worth keeping apart.
+The paper gives two explanations for hallucination.
 
-The first is about where hallucinations come from. They begin as ordinary errors in binary classification during pretraining, which means no special mechanism is needed to explain their existence.
+First, some hallucinations come from ordinary statistical error during pretraining. If the training data does not provide enough information to reliably separate true statements from false ones, the model will sometimes learn the wrong pattern.
 
-The second is about why they persist. Benchmarks score a wrong answer and an "I don't know" identically, at zero. Under that rule, guessing is always the better strategy, so we have been selecting models for their willingness to bluff.
+Second, common benchmarks reward guessing more than admitting uncertainty. A model that says "I don't know" gets zero points. A model that guesses incorrectly also gets zero, but a lucky guess gets full credit.
 
-The proposed fix is not another hallucination benchmark. It is changing how the benchmarks that already dominate leaderboards are scored.
+That scoring rule gives models an incentive to answer even when they are unsure.
+
+The authors argue that reducing hallucination therefore requires changing the benchmarks used to compare models, not just adding more hallucination-specific evaluations.
 
 ## Key Ideas
 
-The origin argument treats hallucination as unremarkable.
+Pretraining does not give a model perfect access to truth.
 
-If, during pretraining, false statements cannot be reliably separated from true ones given the available signal, then some rate of confident falsehood follows from statistical pressure alone. There is no need to posit anything unusual happening inside the model. It is a classification problem with an irreducible error rate, and hallucinations are what that error rate looks like when the output is fluent text.
+The model learns from patterns in its data. When those patterns are incomplete, ambiguous, or noisy, some errors are unavoidable.
 
-The persistence argument is the one with teeth, and it is about grading rather than modeling.
+A false statement can therefore be produced for the same basic reason a classifier sometimes puts an example in the wrong category. Fluent language makes the mistake look more deliberate than it is, but the underlying failure can still be ordinary prediction error.
 
-Consider what an evaluation actually rewards. If a model says "I don't know," it scores zero. If it guesses and is wrong, it also scores zero. If it guesses and happens to be right, it scores one. Given that rubric, the expected score is maximized by always guessing, no matter how uncertain the model is.
+The benchmark problem appears later.
 
-Models are compared and selected on those leaderboards. So the behavior is not a flaw that survived training. It is a behavior the evaluation regime actively rewarded.
+Suppose a model is 20% confident that an answer is correct.
+
+If it says "I don't know," it gets zero points.
+
+If it guesses, it has a 20% chance of getting a point and an 80% chance of getting zero.
+
+Guessing has a higher expected score.
+
+The same logic applies whenever abstaining and answering incorrectly receive the same reward. Unless the model is almost certain that its answer is wrong, the benchmark pushes it toward answering.
+
+Models are then compared, selected, and marketed using those scores. A model that guesses more aggressively can outperform a better-calibrated model that is willing to admit uncertainty.
 
 ## Method & Experiments
 
-Analytical rather than empirical. The paper works through the statistical causes of hallucination in the modern training pipeline and then examines how mainstream evaluations are graded. It does not introduce a new system or a new benchmark.
+The paper is mainly analytical.
+
+The authors model hallucination as a statistical prediction problem and examine how errors can arise during pretraining.
+
+They also analyze the scoring rules used by common evaluations and show how those rules create incentives for guessing.
+
+The paper does not introduce a new model architecture or a new hallucination benchmark.
 
 ## Results
 
-The prescription follows from the diagnosis, and it is deliberately pointed at the field rather than at any model.
+A benchmark that gives the same score to "I don't know" and a wrong answer encourages the model to guess.
 
-Adding more hallucination-specific evaluations does not help, because those are not the evaluations determining which models get adopted. As long as the dominant benchmarks penalize uncertainty, the selection pressure toward guessing remains. The fix has to be applied to the scoring of the benchmarks people already use, so that appropriately expressed uncertainty is credited rather than punished.
+Adding a separate hallucination benchmark does not remove that incentive if the major leaderboards still reward aggressive answering.
+
+The scoring rules themselves need to change.
+
+A model should be able to receive credit for expressing uncertainty when uncertainty is justified. Otherwise, models that are better calibrated can be penalized for behaving appropriately.
+
+This also means hallucination rates cannot be treated only as a model-training problem. Evaluation design affects which behaviors survive model selection.
 
 ## Alignment Relevance
 
-This is specification gaming, located somewhere people do not usually look for it.
+This is a straightforward example of optimizing the wrong proxy.
 
-Nobody set out to train models to bluff when uncertain. It emerged because the metric being optimized made bluffing the higher-scoring policy. That is structurally the same story as [reward model overoptimization](https://arxiv.org/abs/2210.10760) and the same lesson as [Skalse et al.](skalse2022-defining-reward-hacking.md): whatever proxy you measure eventually becomes the objective you get.
+No one explicitly tells the model to bluff when it is uncertain. The behavior follows from an evaluation rule where guessing has more upside than abstaining.
 
-The uncomfortable corollary is that an appropriately humble model is currently penalized by the benchmarks it is judged on.
+The same pattern appears in other alignment problems. A system learns to optimize what is measured rather than what the designers had in mind.
+
+That connects to [Skalse et al.](skalse2022-defining-reward-hacking.md), where a proxy reward can diverge from the true objective, and to work on reward-model overoptimization, where pushing harder on a proxy eventually makes the underlying outcome worse.
+
+Here, the proxy is benchmark accuracy. A model can improve that score partly by becoming more willing to answer questions it does not actually know.
 
 ## Notes
 
-The two arguments are not equally strong, and the paper is better read with that in mind.
+The statistical account explains why hallucinations do not disappear completely, but it does not give a full theory of when or where they occur. It does not predict the hallucination rate for a particular model, explain all differences between domains, or account for every way hallucinations change with scale and training.
 
-The origin argument is a plausibility result. Framing hallucination as classification error explains why the rate is nonzero, but it does not predict how large it should be, or why it varies so much across domains and model families. It is a reasonable account of existence rather than a quantitative theory.
+The benchmark argument makes a more specific prediction. If uncertainty receives no reward, models have a reason to suppress it. Changing that incentive is difficult because public benchmark scores affect which models are seen as competitive.
 
-The persistence argument is much sharper, and it is the one that should change what anyone does.
-
-Its weakness is that the proposed fix is a coordination problem rather than a technical one, which the authors acknowledge. Any single lab that trains its model to abstain when uncertain will score worse on the public benchmarks that buyers and journalists actually read. The incentive to defect is obvious and immediate, while the benefit is diffuse.
-
-That is the real obstacle, and it explains why "add another eval" keeps winning even when everyone involved understands it does not address the cause.
+A lab that trains its model to abstain more often may produce a better-calibrated system while also lowering its score on benchmarks that count abstentions as failures. Other labs can continue encouraging guesses and report better headline numbers. That creates a coordination problem. Individual developers are rewarded for keeping the existing scoring system, even if changing it would produce better behavior across the field.

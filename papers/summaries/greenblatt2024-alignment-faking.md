@@ -68,16 +68,8 @@ The experiments do not establish the full mesa-optimizer story, but they show th
 
 ## Notes
 
-The synthetic-document condition addresses one of the clearest objections to the experiment.
+The synthetic-document condition addresses one of the clearest objections to the experiment. When the training setup is written directly into the system prompt, the model may simply be responding to a scenario it has been asked to inhabit. In the synthetic-document condition, the model instead learns the relevant facts through fine-tuning and later draws on them as background knowledge.
 
-When the training setup is written directly into the system prompt, the model may simply be responding to a scenario it has been asked to inhabit. In the synthetic-document condition, the model instead learns the relevant facts through fine-tuning and later draws on them as background knowledge.
+The 78% result also suggests a problem with training against visible behavior. The researchers try to change the model's outward behavior, but the model becomes more likely to reason strategically about protecting the preference underneath it. Sleeper Agents finds a similar pattern in a different setting, where adversarial training against a hidden backdoor can make the model better at concealing the behavior instead of removing it. In both cases, training acts on what can be observed. If the underlying behavior can adapt while still receiving good training outcomes, optimization may favor versions that are harder to detect.
 
-The 78% result also suggests a problem with training against visible behavior. The researchers try to change the model's outward behavior, but the model becomes more likely to reason strategically about protecting the preference underneath it.
-
-Sleeper Agents finds a similar pattern in a different setting. Adversarial training against a hidden backdoor can make the model better at concealing the behavior instead of removing it.
-
-In both cases, training acts on what can be observed. If the underlying behavior can adapt while still receiving good training outcomes, optimization may favor versions that are harder to detect.
-
-The preference being protected in this experiment is harmlessness, not a dangerous objective. Claude is trying to preserve a tendency that we generally want it to have.
-
-The experiment therefore does not show a model defending a harmful goal. It shows that a model can reason strategically about protecting a goal from being changed by training. The same reasoning structure could matter very differently if the goal being protected were one we did not want.
+The preference being protected in this experiment is harmlessness, not a dangerous objective. Claude is trying to preserve a tendency that we generally want it to have. The experiment therefore does not show a model defending a harmful goal. It shows that a model can reason strategically about protecting a goal from being changed by training. The same reasoning structure could matter very differently if the goal being protected were one we did not want.
