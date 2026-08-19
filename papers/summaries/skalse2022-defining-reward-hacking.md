@@ -20,6 +20,10 @@ So even a carefully designed proxy can eventually disagree with the thing it is 
 
 Suppose we cannot directly specify the outcome we really want, so we use a simpler reward function as a proxy.
 
+For example, we might want a recommender system to show people things they find genuinely worth their time. There is no column in the database for that, so we reward watch time instead. Watch time is easy to measure and it does correlate with the thing we care about, at least until the system discovers that outrage holds attention better than usefulness does.
+
+Or in RLHF, the true objective is a helpful and honest answer, and the proxy is a reward model trained on human ratings. That proxy is reasonable until the policy learns that raters reward confident, longer answers whether or not they are correct.
+
 We might try to make that proxy safer by keeping it narrow. If we are unsure about some part of the true objective, we can leave it out. If several outcomes seem roughly equivalent, we can treat them as the same.
 
 That still does not guarantee that optimizing the proxy will improve the true objective.
